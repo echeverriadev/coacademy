@@ -1,0 +1,8 @@
+.card-body2 {
+	-ms-flex: 1 1 auto;
+	flex: 1 1 auto;
+	margin: 0;
+	padding: 1.5rem 1.5rem;
+	position: relative;
+	height: 240px;
+}

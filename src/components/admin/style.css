@@ -1,0 +1,8 @@
+.justify-center {
+	display: flex;
+	justify-content: center;
+}
+
+.bg-admin-custom {
+	background: #abb1a9;
+}

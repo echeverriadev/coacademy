@@ -1,0 +1,21 @@
+
+.img-height {
+    height: 230px;
+    max-height: 230px;
+}
+
+.area-text{
+    height: 140px;
+}
+
+.price-custom {
+    margin: 2px;
+    margin-bottom: 2px;
+    color:
+    #fff;
+    background:
+    #f84242;
+    padding: 5px;
+    border-radius: 3px;
+    float: right;
+}

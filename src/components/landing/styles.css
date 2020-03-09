@@ -1,0 +1,8 @@
+/*HEADER*/
+.background-photo{
+    background: rgba(0, 0, 0, 0) url("../../image/elearning.jpg") repeat scroll center center ;
+    background-size: auto;
+}
+
+/**FOOTER*/
+.color-text-footer{color: #5d972f}

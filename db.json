@@ -1,0 +1,98 @@
+{   
+    "contact":{
+        "direccion":" New York, NY 10012, US",
+        "telefono":"+ 01 234 567 88",
+        "email": " info12323@example.com",
+        "fax": "+ 01 234 567 89",
+        "rrss":[
+            {
+                "id":"1",
+                "name":"facebook",
+                "url":"facebook.com"
+            },
+            {
+                "id":"2",
+                "name":"twitter",
+                "url":"twitter.com"
+            },
+            {
+                "id":"3",
+                "name":"Google +",
+                "url":"google.com"
+            },
+            {
+                "id":"4",
+                "name": "Linkedin",
+                "url":"linkedin.com"
+            }
+        ]
+    },
+
+    "categories":[
+        {   
+            "id":"1",
+            "name":"Programación",
+            "icon":"fa-user"
+        },
+        {   
+            "id":"2",
+            "name":"Language",
+            "icon":"fa-user"
+        },
+        {   
+            "id":"3",
+            "name":"Science",
+            "icon":"fa-user"
+        }
+    ],
+
+    "courses":[
+        {   
+            "id":"1",
+            "category_id":"1",
+            "proveedor":"Juan Perez",
+            "name":"REACT",
+            "descripcion":"Curso de desarrollo front con react",
+            "precio": 300,
+            "modalidad": "1",
+            "desc_archivo_programa" 
+            "inicio":"1 enero",
+            "fin": "3 noviembre",
+            "valor_vigente":[
+                {
+                    "name":"online",
+                    "costo":370000
+                },
+                {
+                    "name":"semipresencial",
+                    "costo":562000
+                },
+                {
+                    "name":"streaming",
+                    "costo":562500
+                }
+            ]  
+        },
+        {   
+            "id":"2",
+            "category_id":"1",
+            "proveedor":"Juan Perez",
+            "name":"NODEJS",
+            "descripcion":"Curso de desarrollo back con node",
+            "precio": 8800,
+            "modalidad": "2", 
+            "duracion":"2 horas"  
+        },
+        {   
+            "id":"3",
+            "category_id":"2",
+            "proveedor":"Juan Echeverria",
+            "name":"Frances",
+            "descripcion":"Curso de Frances",
+            "precio": 10,
+            "modalidad": "2", 
+            "duracion":"5 horas"  
+        }
+        
+    ]
+}

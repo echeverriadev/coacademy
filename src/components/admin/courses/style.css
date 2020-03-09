@@ -1,0 +1,83 @@
+.loader-style {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color:rgba(249, 249, 249, 0.88);
+}
+
+.text-loader {
+    margin-left: 41%;
+    margin-top: 50%;
+    color:#4a5369;
+    font-size: large;
+}
+
+.img-loader {
+    margin-left: 42%;
+}
+
+.react-spinner-loader-swing div:nth-of-type(3) {
+    background: linear-gradient(to right, #4a5369 0%,#4f6b4d 100%);
+}
+
+.react-spinner-loader-swing div:nth-of-type(4) {
+    background: linear-gradient(to right, #4f6b4d 0%, #51754e 100%);
+}
+
+.react-spinner-loader-swing div:nth-of-type(5) {
+    background: linear-gradient(to right, #51754e 0%,#5c8a2e 100%);
+}
+
+.react-spinner-loader-swing div:nth-of-type(6) {
+    background: linear-gradient(to right, #5c8a2e 0%,#3daa27 100%);
+}
+
+.react-spinner-loader-swing div:nth-of-type(7) {
+    background: linear-gradient(to right, #3daa27 0%,#3daa27 100%);
+}
+
+.frame-pdf {
+    width: 100%;
+    height: 563px;
+}
+
+[id^="heart"] {
+  position: absolute;
+  left: -100vw;
+}
+
+[for^="heart"] {
+  color: #aab8c2;
+  cursor: pointer;
+  font-size: 25px;
+  align-self: center;  
+  transition: color 0.2s ease-in-out;
+}
+
+[for^="heart"]:hover {
+  color: grey;
+}
+
+[for^="heart"]::selection {
+  color: none;
+  background: transparent;
+}
+
+[for^="heart"]::moz-selection {
+  color: none;
+  background: transparent;
+}
+
+[id^="heart"]:checked + label {
+  color: #e2264d;
+  will-change: font-size;
+  animation: heart 1s cubic-bezier(.17, .89, .32, 1.49);
+}
+
+
+
+@keyframes heart {0%, 17.5% {font-size: 0;}}

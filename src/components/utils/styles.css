@@ -1,0 +1,10 @@
+.construction-image2{
+   
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.construction-image-custom {
+	background: linear-gradient(-225deg,rgba(71, 85, 60, 0.7) 35%,rgba(93, 151, 47) 100%) !important
+}
