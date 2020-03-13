@@ -7,11 +7,15 @@ declare var $:any;
 const mapStateLoginToProps = state => {
   return {
     user: state.user.userData,
-    isFetching: state.user.isFetching
+    isFetching: state.user.isFetching,
+    countries: state.user.countries,
+    regions: state.user.regions,
+    cities: state.user.cities
   }
 }
 
 const mapDispatchLoginToProps = (dispatch) => {
+  dispatch(mainActions._getCountriesApi())
   return {
     onLoginInputChange: (e) => {
     	dispatch(mainActions.loginInputChange(e))
@@ -32,6 +36,15 @@ const mapDispatchLoginToProps = (dispatch) => {
     },
     prepareMenu: () => {
       dispatch(mainActions.changeMenu('LOGIN'))
+    },
+    onChangeCountryRegion: () => {
+      const country_id = $( "#countryselect option:checked" ).val();
+      dispatch(mainActions._eraseCities());
+      dispatch(mainActions._getRegionCountryApi(country_id))
+    },
+    onChangeCitiesRegion: () => {
+      const region_id = $( "#regionselect option:checked" ).val();
+      dispatch(mainActions._getCitiesRegionApi(region_id))
     }
   }
 }

@@ -3,6 +3,9 @@ import * as mainActions from '../actions/main'
 const initialState = {
   isFetching: false,
   userLogged: false,
+  countries: [],
+  regions: [],
+  cities: [],
   userData: {
     currentUrl: '/',
     email: '',
@@ -15,7 +18,10 @@ const initialState = {
       sex: "",
       lastname: "",
       adress: "",
-      description: ""
+      description: "",
+      country: "",
+      region: "",
+      city: ""
     },
     myCourses: []
   },
@@ -214,6 +220,26 @@ const mainReducer = (state = initialState, action) => {
     case mainActions.REQUEST_MY_COURSES_FAILED:
       return Object.assign({}, state, {
         isFetching: false
+      })
+
+    case mainActions.REQUEST_REGION_COUNTRY_SUCCEDED:
+      return Object.assign({}, state,{
+        regions: action.regions
+      }) 
+    
+    case mainActions.REQUEST_COUNTRIES_SUCCEDED:
+      return Object.assign({}, state,{
+        countries: action.countries
+      }) 
+    
+    case mainActions.REQUEST_CITIES_REGION_SUCCEDED:
+      return Object.assign({}, state, {
+        cities: action.cities
+      })
+
+    case mainActions.REQUEST_CLEAR_CITIES_SUCCEDED:
+      return Object.assign({}, state, {
+        cities: []
       })
 
     default:

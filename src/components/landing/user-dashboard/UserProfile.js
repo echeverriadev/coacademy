@@ -214,12 +214,12 @@ class UserProfile extends React.Component {
 														</div>
 														<div className="col-sm-6 col-md-6">
 															<div className="form-group">
-																<label className="form-label">¿A qué te dedicas?</label>
+																<label className="form-label">Información laboral</label>
 																<input 
 																	type="text" 
-																	name="description"
+																	name="instagram"
 																	className="form-control" 
-																	placeholder="Cuenta a todos a que te dedicas"
+																	placeholder="Información laboral"
 																	value={user.user_profile.description}
 																	onChange={onEditProfileInputChange}  
 																/>

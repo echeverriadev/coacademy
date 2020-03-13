@@ -20,7 +20,12 @@ class Login extends Component {
 			onLoginKeyPress,
 			onRegisterInputChange,
 			onRegister,
-			onRegisterKeyPress
+			onRegisterKeyPress,
+			countries,
+			regions,
+			onChangeCountryRegion,
+			onChangeCitiesRegion,
+			cities
 	    } = this.props
 
         return(
@@ -78,6 +83,7 @@ class Login extends Component {
 											<div className="wrapper wrapper2">
 												<div id="Register" className="card-body" tabIndex="500">
 													<h3 className="pb-1">Registro</h3>
+													<div className="separator" >Datos de Autenticación</div>
 													<div className="row">
 														<div className="col-md-4 col-xl-4 col-xs-4 col-sm-4">
 															<div className="input-form mail">
@@ -115,6 +121,7 @@ class Login extends Component {
 															</div>
 														</div>
 													</div>
+													<div className="separator" >Datos Básicos</div>
 													<div className="row">
 														<div className="col-md-6 col-xl-6 col-xs-6 col-sm-6">
 															<div className="input-form">
@@ -167,32 +174,105 @@ class Login extends Component {
 															</div>
 														</div>
 													</div>
+													<div className="separator" >Datos Domicilio</div>
 													<div className="row">
-														<div className="col-md-12 col-xl-12 col-xs-12 col-sm-12">
+														<div className="col-md-4 col-xl-4 col-xs-4 col-sm-4">
+															<div className="input-form">
+																<select 
+																	className="form-control"
+																	onChange={(e) => {onRegisterInputChange(e); onChangeCountryRegion()}}
+																	name="country"
+																	id="countryselect"
+																	value={(user.user_profile && user.user_profile.country)? user.user_profile.country : "-1"}
+																>
+																	<option value="-1">Seleccione un pais (*)</option>
+																	{
+																		(countries && countries.length > 0)&&
+																			countries.map((country, index ) => (
+																				<option value={country.id}>{country.name}</option>
+																			))
+																	}
+																</select>
+																<label>País (*)</label>
+															</div>
+														</div>	
+														<div className="col-md-4 col-xl-4 col-xs-4 col-sm-4">
+															<div className="input-form">
+																<select 
+																	className="form-control"
+																	onChange={(e) => {onRegisterInputChange(e); onChangeCitiesRegion()}}
+																	name="region"
+																	id="regionselect"
+																	value={(user.user_profile && user.user_profile.region)? user.user_profile.region : "-1"}
+																>
+																	<option value="-1">Seleccione una región (*)</option>
+																	{
+																		(regions && regions.length > 0)&&
+																			regions.map((region, index ) => (
+																				<option value={region.id}>{region.name}</option>
+																			))
+																	}
+																</select>
+																<label>Región (*)</label>
+															</div>
+														</div>	
+														<div className="col-md-4 col-xl-4 col-xs-4 col-sm-4">
+															<div className="input-form">
+																<select 
+																	className="form-control"
+																	onChange={onRegisterInputChange}
+																	name="city"
+																	value={(user.user_profile && user.user_profile.city)? user.user_profile.city : "-1"}
+																>
+																	<option value="-1">Seleccione una ciudad (*)</option>
+																	{
+																		(cities && cities.length > 0)&&
+																			cities.map((city, index) => (
+																				<option value={city.id}>{city.name}</option>
+																			))
+																	}
+																</select>
+																<label>Ciudad (*)</label>
+															</div>
+														</div>	
+													</div>
+													<div className="separator" >Datos Laborales</div>
+													<div className="row">
+														<div className="col-md-4 col-xl-4 col-xs-4 col-sm-4">
 															<div className="input-form">
 																<input 
 																	onChange={onRegisterInputChange}
 																	type="text" 
-																	name="adress"
-																	defaultValue={(user.user_profile && user.user_profile.adress)? user.user_profile.adress : ""}
+																	name="charge"
+																	defaultValue={(user.user_profile && user.user_profile.charge)? user.user_profile.charge : ""}
 																/>
-																<label>Dirección (*)</label>
+																<label>Cargo (*)</label>
 															</div>
-														</div>	
-													</div>
-													<div className="row">
-														<div className="col-md-12 col-xl-12 col-xs-12 col-sm-12">
+														</div>
+														<div className="col-md-4 col-xl-4 col-xs-4 col-sm-4">
 															<div className="input-form">
 																<input 
 																	onChange={onRegisterInputChange}
 																	type="text" 
-																	name="description"
-																	defaultValue={(user.user_profile && user.user_profile.description)? user.user_profile.description : ""}
+																	name="area"
+																	defaultValue={(user.user_profile && user.user_profile.area)? user.user_profile.area : ""}
 																/>
-																<label>¿A qué te dedicas?</label>
+																<label>Área (*)</label>
+															</div>
+														</div>
+														<div className="col-md-4 col-xl-4 col-xs-4 col-sm-4">
+															<div className="input-form">
+																<input 
+																	onChange={onRegisterInputChange}
+																	type="text" 
+																	name="company"
+																	defaultValue={(user.user_profile && user.user_profile.company)? user.user_profile.company : ""}
+																/>
+																<label>Empresa (*)</label>
 															</div>
 														</div>	
 													</div>
+													<br></br>
 													<div className="submit">
 														<button id="btn-login" className="btn btn-primary btn-block" onClick={() => onRegister(user)}>Registrarse</button>
 													</div>

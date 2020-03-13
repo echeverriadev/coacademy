@@ -6,7 +6,17 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 import './style.css'
 
+declare var $:any;
+
 class CoursesList extends React.Component {
+
+  componentDidMount(){
+    var script=document.createElement('script');
+    script.type='text/javascript';
+    script.src='assets/js/dataTables/custom-reload-table.js';
+
+    $("body").append(script);
+  }
 
 	render(){
 
@@ -46,49 +56,49 @@ class CoursesList extends React.Component {
               />
             </div>
           )}
-          <div className="ads-tabs">
-            <div className="tab-content">
-              <div
-                className="tab-pane active table-responsive border-top userprof-tab"
-                id="tab1"
-              >
-                <table className="table table-bordered table-hover mb-0 text-nowrap">
-                  <thead>
-                    <CourseListHeader />
-                  </thead>
-                  <tbody>
-                    {courses && courses.length > 0 ? (
-                      courses.map(course => (
-                        <CourseRow
-                          key={course.id}
-                          course={course}
-                          onViewDetails={onViewDetails}
-                          markAsPopular={markAsPopular}
-                          dismarkAsPopular={dismarkAsPopular}
-                          onSetCourse={onSetCourse}
-                          onEditCourseClick={onEditCourseClick}
-                        />
-                      ))
-                    ) : (
-                      <tr>
-                        <td colSpan={6}> No hay cursos cargados </td>
-                      </tr>
-                    )}
-                    <tr>
-                      <td colSpan={6}>
-                        <button
-                          className="btn btn-info"
-                          onClick={() => onNewCourse()}
-                        >
-                          {" "}
-                          Agregar un nuevo curso{" "}
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+          <div
+            className="table-responsive border-top "
+          >
+            <table style={{width: "100%", marginBottom: 10}} className="data-table-user table table-striped table-bordered table-hover mb-0 text-nowrap">
+              <thead>
+                <CourseListHeader />
+              </thead>
+              <tbody>
+                {courses && courses.length > 0 ? (
+                  courses.map(course => (
+                    <CourseRow
+                      key={course.id}
+                      course={course}
+                      onViewDetails={onViewDetails}
+                      markAsPopular={markAsPopular}
+                      dismarkAsPopular={dismarkAsPopular}
+                      onSetCourse={onSetCourse}
+                    />
+                  ))
+                ) : (
+                  <tr>
+                    <th title="Marca de destacado"><i style={{fontSize: 25, color: "orange"}} className="fa fa-map-marker"></i></th>
+                    <th>Detalles</th>
+                    <th>Categoría</th>
+                    <th>Precio</th>
+                    <th>Estado del curso</th>
+                    <th>Duración</th>
+                    <th>Acciones</th>
+                  </tr>
+                )}
+                <tr>
+                  <td colSpan={6}>
+                    <button
+                      className="btn btn-info"
+                      onClick={() => onNewCourse()}
+                    >
+                      {" "}
+                      Agregar un nuevo curso{" "}
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
         <ModalDelete
