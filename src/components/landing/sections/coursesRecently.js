@@ -20,6 +20,10 @@ class coursesRecently extends React.Component {
         items: 2,
         nav: true
       },
+      900: {
+        items: 3,
+        nav: true
+      },
       1300: {
         items: 4,
         nav: true
