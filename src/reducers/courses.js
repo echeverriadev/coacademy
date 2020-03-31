@@ -3,6 +3,7 @@ import { addDay, dateParse } from "../components/utils/dateParse";
 
 const initialState = {
   isFetching: false,
+  isFetchingRequest: false,
   courses: [],
   coursesByCategories: [],
   course: {
@@ -426,6 +427,50 @@ const coursesReducer = (state = initialState, action) => {
     return Object.assign({}, state, {
       isFetching: false
     })
+
+    case coursesActions.REQUEST_SEND_BUY_REQUEST:
+    return Object.assign({}, state, {
+      isFetching: true
+    })
+
+    case coursesActions.REQUEST_SEND_BUY_REQUEST_SUCCESS:
+    return Object.assign({}, state, {
+      isFetching: false
+    })
+
+    case coursesActions.REQUEST_SEND_BUY_REQUEST_FAILED:
+    return Object.assign({}, state, {
+      isFetching: false
+    })
+
+    case coursesActions.HANDLE_BUY_REQUEST_COMMENT:
+      return Object.assign({}, state, {
+        course: Object.assign({}, state.course, {
+          [action.event.target.name]: action.event.target.value
+        })
+      })
+
+    case coursesActions.CANCEL_BUY_REQUEST_COMMENT:
+      return Object.assign({}, state, {
+        course: Object.assign({}, state.course, {
+          buy_comment: ""
+        })
+      })
+
+    case coursesActions.REQUEST_UNBLOCK_COURSE:
+      return Object.assign({}, state, {
+        isFetchingRequest: true
+      })
+    
+    case coursesActions.REQUEST_UNBLOCK_COURSE_SUCCESS:
+      return Object.assign({}, state, {
+        isFetchingRequest: false
+      })
+
+    case coursesActions.REQUEST_UNBLOCK_COURSE_FAILED:
+      return Object.assign({}, state, {
+        isFetchingRequest: false
+      })
 
     default:
       return state

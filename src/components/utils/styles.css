@@ -8,3 +8,7 @@
 .construction-image-custom {
 	background: linear-gradient(-225deg,rgba(71, 85, 60, 0.7) 35%,rgba(93, 151, 47) 100%) !important
 }
+
+.padding-label {
+    padding: 0.375rem 0.75rem;
+}

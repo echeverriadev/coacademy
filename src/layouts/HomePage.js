@@ -15,6 +15,7 @@ import Footer from '../components/landing/partials/_footer'
 import LoginContainer from '../containers/LoginContainer';
 
 import NotFound from '../components/utils/notfound'
+import NotFoundSignIn from '../components/utils/NotFoundSignIn'
 
 class HomePage extends React.Component {
 
@@ -55,6 +56,7 @@ class HomePage extends React.Component {
           <Route exact path="/courses" component={CoursesListContainer}></Route>
           <Route exact path="/login" component={LoginContainer}></Route>
           <Route exact path='/recoverPassword' component={RecoverPasswordContainer}/>
+          <Route exact path='/courses/unblock' component={() => <NotFoundSignIn changeMenu={changeMenu} />}/>
 
           <Route component={() => <NotFound changeMenu={changeMenu} />}></Route>
         </Switch>

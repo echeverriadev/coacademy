@@ -8,6 +8,8 @@ import About from '../pages/aboutus';
 import Contact from '../pages/contact';
 import PageNotFound from '../../utils/notfound'
 
+import NotFoundSignIn from '../../utils/NotFoundSignIn'
+
 import Header from '../../../components/landing/partials/headerLanding' 
 import Footer from '../../../components/landing/partials/_footer'
 
@@ -15,6 +17,7 @@ import CoursesListContainer from "../../../containers/courses/CoursesListContain
 import CourseDetailsContainer from '../../../containers/courses/CourseDetailsContainer'
 import MyCoursesListContainer from '../../../containers/courses/MyCoursesListContainer'
 import UserProfileContainer from '../../../containers/users/UserProfileContainer'
+import UnblockCourseContainer from '../../../containers/courses/UnblockCoursesContainer'
 
 class UserDashboard extends Component {
 
@@ -71,6 +74,7 @@ class UserDashboard extends Component {
                 <Route exact path="/courses" component={CoursesListContainer}></Route>
                 <Route exact path="/myCourseList" component={MyCoursesListContainer}></Route>
                 <Route exact path="/myProfile" component={UserProfileContainer}></Route>
+                <Route exact path='/courses/unblock' component={UnblockCourseContainer}/>
 
                 <Route component={() => <PageNotFound changeMenu={changeMenu}/>} />
               </Switch>

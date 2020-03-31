@@ -59,7 +59,7 @@ class MyCoursesList extends React.Component {
                         {
                           (myCourses && myCourses.length > 0)&&
                             myCourses.map((course) => (
-                              <Link key={course.id} className="card overflow-hidden" to="/courseDetails" onClick={() => onSeeCourseDetails(course)}>
+                              <Link className="card overflow-hidden" to={"/courseDetails/"+course.id}>
                                 <div className="ribbon ribbon-top-left text-danger">
                                   {
                                     (!course.price || parseInt(course.price, 10) === 0)?
@@ -72,20 +72,25 @@ class MyCoursesList extends React.Component {
                                 <div className="d-md-flex">
                                   <div className="item-card9-img">
                                     <div className="item-card9-imgs">
-                                      <img src={process.env.REACT_APP_NODE_URL + '/uploads/courses/images/' + course.image} alt="img" className="cover-image"/>
+                                      <Link to={"/courseDetails/"+course.id} onClick={() => {onSeeCourseDetails(course)}}></Link>
+                                      <img src={process.env.REACT_APP_NODE_URL + '/uploads/courses/images/' + course.image} alt="img" className="cover-image" style={{height:210}}/>
                                     </div>
+                                    
                                     <div className="item-overly-trans">
-                                    <Link to={"/courseDetails/"+course.id} onClick={() => onSeeCourseDetails(course)} className="bg-primary">{course.modality.name}</Link>
+                                    <Link to={"/courseDetails/"+course.id} onClick={() => {onSeeCourseDetails(course) }} className="bg-primary">{course.modality.name}</Link>
                                     </div>
                                   </div>
                                   <div className="card border-0 mb-0">
-                                    <div className="card-body2 ">
+                                    <div className="card-body ">
                                       <div className="item-card9">
-                                        <Link to={"/courseDetails/"+course.id} onClick={() => onSeeCourseDetails(course)} className="text-dark"><h3 className="font-weight-semibold mt-1">{course.name}</h3></Link>
+                                        <Link to={"/courseDetails/"+course.id} onClick={() => {onSeeCourseDetails(course) }} className="text-dark"><h3 className="font-weight-semibold mt-1">{course.name}</h3></Link>
                                         <div className="mt-2 mb-2">
-                                          <Link to={"/courseDetails/"+course.id} onClick={() => onSeeCourseDetails(course)} className="mr-4"><span className="text-muted fs-13"><i className="fa fa-tag mr-1"></i> {course.category.name}</span></Link>
-                                          <Link to={"/courseDetails/"+course.id} onClick={() => onSeeCourseDetails(course)} className="mr-4"><span className="text-muted fs-13"><i className="fa fa-user-o text-muted mr-1"></i> {course.provider.name}</span></Link>
-                                          <Link to={"/courseDetails/"+course.id} onClick={() => onSeeCourseDetails(course)} className="mr-4"><span className="text-muted fs-13"><i className="fa fa-clock-o text-muted mr-1"></i> {getFullDateNoHours(course.begin_date)}</span></Link>
+                                          <Link to={"/courseDetails/"+course.id} onClick={() => {onSeeCourseDetails(course) }} className="mr-4"><span className="text-muted fs-13"><i className="fa fa-tag mr-1"></i> {course.category.name}</span></Link>
+                                          <Link to={"/courseDetails/"+course.id} onClick={() => {onSeeCourseDetails(course) }} className="mr-4"><span className="text-muted fs-13"><i className="fa fa-user-o text-muted mr-1"></i> {course.provider.name}</span></Link>
+                                          {
+                                            (course && parseInt(course.with_date, 10) === 1)&&
+                                              <Link to={"/courseDetails/"+course.id} onClick={() => {onSeeCourseDetails(course) }} className="mr-4"><span className="text-muted fs-13"><i className="fa fa-clock-o text-muted mr-1"></i> {getFullDateNoHours(course.begin_date)}</span></Link>
+                                          }
                                         </div>
                                         <p className="mb-0 leading-tight">{course.description}</p>
                                       </div>
@@ -93,7 +98,15 @@ class MyCoursesList extends React.Component {
                                     <div className="card-footer pt-4 pb-4">
                                       <div className="item-card9-footer d-flex">
                                         <div className="item-card9-cost">
-                                          <h4 className="text-dark font-weight-semibold mb-0 mt-0">${course.price}</h4>
+                                          {
+                                            (course.price !== 0 && parseInt(course.is_in_offer) === 2)?
+                                              <h4 className="text-dark font-weight-semibold mb-0 mt-0">${course.price}</h4>
+                                            :
+                                            (parseInt(course.is_in_offer, 10) === 1)&&
+                                              <label style={{ float: "right" }}><span className="text-dark font-weight-semibold h4">{course.offer_price}$</span>
+                                                <span className="text-muted h5 font-weight-normal ml-1"><span className="strike-text">{course.price}$</span></span>
+                                              </label>
+                                          }
                                         </div>
                                         <div className="ml-auto">
                                           <div className="rating-stars block">

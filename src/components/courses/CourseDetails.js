@@ -12,6 +12,8 @@ import {
 	TwitterIcon
 } from 'react-share'
 
+import BuyCourseModalContainer from '../../containers/courses/BuyCourseModalContainer';
+
 declare var $:any;
 
 class CourseDetails extends React.Component {
@@ -33,7 +35,7 @@ class CourseDetails extends React.Component {
 
 	render(){
 
-		const {course, courses, onDownLoadFile} = this.props;
+		const {userLogged, course, userHasNoInscribe, userCourses, courses, onDownLoadFile, onNotifyLogin, isFetching, onSendBuyRequest, user} = this.props;
 
 		return(
 			<div>
@@ -117,11 +119,15 @@ class CourseDetails extends React.Component {
 										</div>
 										<div className="card">
 											<div className="card-header">
-												<h3 className="card-title">Description</h3>
+												<h3 className="card-title">Descripción</h3>
 											</div>
 											<div className="card-body">
 												<div className="mb-4 description">
 													<p>{course.description}</p>
+													{
+														(userCourses && userHasNoInscribe(userCourses, course) || parseInt(course.price, 10) === 0)&&	
+															<p><strong>Link de descarga: </strong><a href={course.link_media} target="_blank">{course.link_media}</a></p>
+													}
 													{
 														(course.document_description)&&	
 															<a download target="_blank" href={process.env.REACT_APP_NODE_URL+"/uploads/courses/pdfs/"+ course.document_description + "/download"} className="btn btn-warning icons" ><i className="icon icon-printer  mr-1"></i> Descargar documento</a>
@@ -177,41 +183,44 @@ class CourseDetails extends React.Component {
 												<div className="icons">
 													<div className="row"> 
 														{
-															(course.price !== 0)&&
-																<Link to="/courseDetails" className="btn btn-primary mb-3 mb-xl-0" style={{marginRight: 20}}><i className="fe fe-credit-card mr-1"></i>Comprar Curso</Link>
+															(course.price !== 0 && userLogged && userCourses && !userHasNoInscribe(userCourses, course))?
+																<Link to="/courseDetails" className="btn btn-primary mb-3 mb-xl-0" onClick={ () => onSendBuyRequest(user, course) } style={{marginRight: 20}}><i className="fe fe-credit-card mr-1"></i>Comprar Curso</Link>
+															:
+															(course.price !== 0 && !userLogged)&&
+																<Link to="/courseDetails" onClick={() => onNotifyLogin()} className="btn btn-primary mb-3 mb-xl-0" style={{marginRight: 20}}><i className="fe fe-credit-card mr-1"></i>Comprar Curso</Link>
 														}
 														<div className="mb-3 mb-xl-0"> 
 															<FacebookShareButton
-										            url={'https://colab-course-web.herokuapp.com/courseDetails/' + course.id}
-										            quote={course.name}
-										          >
-										            <FacebookIcon
-										              size={32}
-										              round />
-										          </FacebookShareButton>
+															url={'https://colab-course-web.herokuapp.com/courseDetails/' + course.id}
+															quote={course.name}
+														>
+															<FacebookIcon
+															size={32}
+															round />
+														</FacebookShareButton>
+																</div>
+																<div className="mb-3 mb-xl-0">
+														<WhatsappShareButton
+															url={'https://colab-course-web.herokuapp.com/courseDetails/' + course.id}
+															quote={course.name}
+														>
+															<WhatsappIcon
+															size={32}
+															round />
+														</WhatsappShareButton>
+														
+
 														</div>
 														<div className="mb-3 mb-xl-0">
-										          <WhatsappShareButton
-										            url={'https://colab-course-web.herokuapp.com/courseDetails/' + course.id}
-										            quote={course.name}
-										          >
-										            <WhatsappIcon
-										              size={32}
-										              round />
-										          </WhatsappShareButton>
-										          
-
-										        </div>
-										        <div className="mb-3 mb-xl-0">
-										          <TwitterShareButton
-										            url={'https://colab-course-web.herokuapp.com/courseDetails/' + course.id}
-										            quote={course.name}
-										          >
-										            <TwitterIcon
-										              size={32}
-										              round />
-									          	</TwitterShareButton>
-										        </div>
+															<TwitterShareButton
+																url={'https://colab-course-web.herokuapp.com/courseDetails/' + course.id}
+																quote={course.name}
+															>
+																<TwitterIcon
+																size={32}
+																round />
+															</TwitterShareButton>
+														</div>
 													</div>
 												</div>
 											</div>
@@ -304,7 +313,7 @@ class CourseDetails extends React.Component {
 
 					</div>
 			}
-
+			<BuyCourseModalContainer />
 			</div>
 		);
 	}

@@ -4,6 +4,8 @@ import { addDay, addDayWithoutFormat, dateParse} from "../components/utils/dateP
 import message from '../components/utils/message'
 import {requestUploadImageSucceded} from './main'
 
+declare var $:any;
+
 export const SET_COURSE = 'SET_COURSE'
 export const CANCEL_DELETE_COURSE = 'CANCEL_DELETE_COURSE'
 export const VIEW_COURSE_DETAILS = 'VIEW_COURSE_DETAILS'
@@ -17,6 +19,8 @@ export const CANCEL_NEW_COURSE = 'CANCEL_NEW_COURSE'
 export const NEW_COURSE = 'NEW_COURSE'
 export const COURSE_FILE_FOUND = 'COURSE_FILE_FOUND'
 export const REMOVE_FILTERS = 'REMOVE_FILTERS'
+export const HANDLE_BUY_REQUEST_COMMENT = 'HANDLE_BUY_REQUEST_COMMENT'
+export const CANCEL_BUY_REQUEST_COMMENT = 'CANCEL_BUY_REQUEST_COMMENT'
 
 // Actions Requests
 export const REQUEST_COURSES = 'REQUEST_COURSES'
@@ -42,6 +46,12 @@ export const REQUEST_MARK_COURSE_AS_POPULAR_SUCCEDED = 'REQUEST_MARK_COURSE_AS_P
 export const REQUEST_MARK_COURSE_AS_POPULAR_FAILED = 'REQUEST_MARK_COURSE_AS_POPULAR_FAILED'
 export const REQUEST_DISMARK_COURSE_AS_POPULAR_SUCCEDED = 'REQUEST_DISMARK_COURSE_AS_POPULAR_SUCCEDED'
 export const REQUEST_DISMARK_COURSE_AS_POPULAR_FAILED = 'REQUEST_DISMARK_COURSE_AS_POPULAR_FAILED'
+export const REQUEST_SEND_BUY_REQUEST = 'REQUEST_SEND_BUY_REQUEST'
+export const REQUEST_SEND_BUY_REQUEST_SUCCESS = 'REQUEST_SEND_BUY_REQUEST_SUCCESS'
+export const REQUEST_SEND_BUY_REQUEST_FAILED = 'REQUEST_SEND_BUY_REQUEST_FAILED'
+export const REQUEST_UNBLOCK_COURSE = 'REQUEST_UNBLOCK_COURSE'
+export const REQUEST_UNBLOCK_COURSE_SUCCESS = 'REQUEST_UNBLOCK_COURSE_SUCCESS'
+export const REQUEST_UNBLOCK_COURSE_FAILED = 'REQUEST_UNBLOCK_COURSE_FAILED'
 
 function fileFound(resp){
 	return {
@@ -200,6 +210,43 @@ function requestReactivateCourseFailed(){
 	}
 }
 
+function requestUnblockCourse(){
+	return {
+		type: REQUEST_UNBLOCK_COURSE
+	}
+}
+
+function requestUnblockCourseSuccess(course){
+	return {
+		type: REQUEST_UNBLOCK_COURSE_SUCCESS,
+		course
+	}
+}
+
+function requestUnblockCourseFailed(){
+	return {
+		type: REQUEST_UPDATE_COURSE_FAILED
+	}
+}
+
+function requestSendBuyRequest(){
+	return {
+		type: REQUEST_SEND_BUY_REQUEST
+	}
+}
+
+function requestSendBuyRequestSuccess(){
+	return {
+		type: REQUEST_SEND_BUY_REQUEST_SUCCESS
+	}
+}
+
+function requestSendBuyRequestFailed(){
+	return { 
+		type: REQUEST_SEND_BUY_REQUEST_FAILED
+	}
+}
+
 export function handleEditInputChange(event){
 	return {
 		type: HANDLE_EDIT_INPUT_CHANGE,
@@ -270,6 +317,19 @@ export function handleNewInputChange(e){
 	return {
 		type: HANDLE_NEW_INPUT_CHANGE,
 		event: e
+	}
+}
+
+export function handleBuyRequestComment(e){
+	return {
+		type: HANDLE_BUY_REQUEST_COMMENT,
+		event: e
+	}
+}
+
+export function cancelBuyRequest(){
+	return {
+		type: CANCEL_BUY_REQUEST_COMMENT
 	}
 }
 
@@ -1233,4 +1293,117 @@ export function uploadCourseImage(course, event){
 		}
 	}
 
+}
+
+export function sendBuyRequest(user, course){
+
+	console.log(user, course)
+
+	const body = {
+		email: user.email,
+		phone: user.user_profile.phone,
+		adress: user.user_profile.adress,
+		comment: course.buy_comment
+	}
+
+	return function(dispatch, getState){
+
+		dispatch(requestSendBuyRequest())
+		
+		let token = getState().user.userData.token;
+		
+		return fetch(process.env.REACT_APP_NODE_URL+"/courses/"+ course.id + "/sendBuyRequest",{
+	        method: "POST",
+	        mode: "cors",
+	        credentials: "with-credentials",
+	        headers:{
+	        	'Content-Type': 'application/json; charset=utf-8',
+	        	'token': token
+			},
+			body: JSON.stringify(body)
+	    })
+	    .then(
+	      response => {
+		  		if (response.ok){
+						return response.json()
+					}	
+					if (response.status === 422)
+						return response.json().then(err => { throw err; });
+				},
+
+		      error => console.log('An error occurred.', error)
+	    )
+	    .then(json => {
+	    	console.log(json)
+	    	if (json && json.status !== 500) {
+	    		message(json.message, 'success', 0);
+	    		dispatch(requestSendBuyRequestSuccess());	
+	    	}else{
+				if(Array.isArray(json.errors)){
+					json.errors.map(err => {
+						message(err.msg, 'error', 0);
+					}) 
+				}else{
+					message(json.message, 'error', 0);
+				}
+	    		dispatch(requestSendBuyRequestFailed());
+	    	}
+	    }
+	    )
+	    .catch((errors) => {
+			console.log(errors);
+		});
+
+	}
+}
+
+export function unBlockCourse(tokenParam){
+
+	let body = {
+		token: tokenParam
+	}
+
+	return function(dispatch, getState){
+
+		let token = getState().user.userData.token;
+		let isFetching = getState().courses.isFetchingRequest
+		
+		dispatch(requestUnblockCourse())
+
+		return fetch(process.env.REACT_APP_NODE_URL+"/courses/user/courseUnblock",{
+			method: "POST",
+			mode: "cors",
+			credentials: "with-credentials",
+			headers:{
+				'Content-Type': 'application/json; charset=utf-8',
+				'token': token
+			},
+			body: JSON.stringify(body)
+		})
+		.then(
+			response => {
+					if (response.ok){
+						return response.json()
+					}	
+					if (response.status === 422)
+						return response.json().then(err => { throw err; });
+				},
+
+				error => console.log('An error occurred.', error)
+		)
+		.then(json => {
+			console.log(json)
+			if (json && json.status !== 500) {
+				dispatch(requestUnblockCourseSuccess(json.course));	
+			}else{
+				document.getElementById('goBack').click();
+				message(json.message, 'error', 0);
+				dispatch(requestUnblockCourseFailed());
+			}
+		}
+		)
+		.catch((errors) => {
+			console.log(errors);
+		});
+	}
 }
