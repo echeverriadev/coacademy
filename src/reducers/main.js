@@ -63,7 +63,8 @@ const mainReducer = (state = initialState, action) => {
         user_profile: Object.assign({}, action.user.user_profile, {
           original: action.user.user_profile
         }),
-        token: action.token
+        token: action.token,
+        myCourses: []
       }),
       userLogged: true,
       isFetching: false

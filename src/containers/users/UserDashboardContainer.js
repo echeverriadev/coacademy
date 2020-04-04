@@ -4,10 +4,13 @@ import * as mainActions from '../../actions/main'
 import * as categoriesActions from '../../actions/categories'
 import * as coursesActions from '../../actions/courses'
 import * as modalitiesActions from '../../actions/modalities'
+import message from '../../components/utils/message'
 
 const mapStateUserDashboardToProps = state => {
   return {
-  	user: state.user.userData,
+    user: state.user.userData,
+    userLogged: state.user.userLogged,
+    userCourses: state.user.userData.myCourses,
     courses: state.courses.courses,
     modalities: state.modalities.modalities,
     categories: state.categories.categories,
@@ -42,6 +45,21 @@ const mapDispatchUserDashboardToProps = (dispatch, ownProps) => {
     },
     removeFilter: () => {
       dispatch(coursesActions.removeCourseFilters())
+    },
+    onNotifyLogin: () => {
+      message('Debe iniciar sesión para realizar esta acción', 'error')
+    },
+    onSendBuyRequest: (user, course) => {
+      dispatch(coursesActions.sendBuyRequest(user, course));
+    },
+    userHasNoInscribe: (userCourses, course) => {
+      var result = false;
+      userCourses.map((userCourse) => {
+        if(parseInt(userCourse.id, 10) === parseInt(course.id, 10))
+          result = true
+      })
+
+      return result;
     }
   }
 }

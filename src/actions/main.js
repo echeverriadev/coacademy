@@ -269,6 +269,7 @@ export function fetchLogin(user) {
                 setTimeout(function() {
                   dispatch(requestLoginSucceded(json.user, json.token));
                   dispatch(changeMenu('INDEX'))
+                  dispatch(getCoursesByUser())
                 }, 500);
               } else {
                 message(json.message, 'error');
@@ -294,11 +295,11 @@ export function fetchLogin(user) {
 function validateOrigin(user){
   console.log(user.user_profile)
   var result = true;
-  if(!user.user_profile.country || String(user.user_profile.country) === "" || String(user.user_profile.country) === "-1")
+  if(!user.user_profile || !user.user_profile.country || String(user.user_profile.country) === "" || String(user.user_profile.country) === "-1")
     result = false;
-  if(!user.user_profile.region || String(user.user_profile.region) === "" || String(user.user_profile.region) === "-1")
+  if(!user.user_profile || !user.user_profile.region || String(user.user_profile.region) === "" || String(user.user_profile.region) === "-1")
     result = false;
-  if(!user.user_profile.city || String(user.user_profile.city) === "" || String(user.user_profile.city) === "-1")
+  if(!user.user_profile || !user.user_profile.city || String(user.user_profile.city) === "" || String(user.user_profile.city) === "-1")
     result = false;
 
   return result;
@@ -306,11 +307,11 @@ function validateOrigin(user){
 
 function validateUserWorks(user){
   var result = true;
-  if(!user.user_profile.charge || String(user.user_profile.charge) === "")
+  if(!user.user_profile || !user.user_profile.charge || String(user.user_profile.charge) === "")
     result = false;
-  if(!user.user_profile.area || String(user.user_profile.area) === "")
+  if(!user.user_profile || !user.user_profile.area || String(user.user_profile.area) === "")
     result = false;
-  if(!user.user_profile.company || String(user.user_profile.company) === "")
+  if(!user.user_profile || !user.user_profile.company || String(user.user_profile.company) === "")
     result = false;
 
   return result;
@@ -328,9 +329,9 @@ export function fetchRegister(user) {
         if (user.password != null && String(user.password) !== "") {
           if (user.confirm_password != null && String(user.confirm_password) !== "") {
             if(String(user.password) === String(user.confirm_password)){
-              if(user.user_profile.name !== null && String(user.user_profile.name) !== ""){
-                if(user.user_profile.phone !== null && String(user.user_profile.phone) !== ""){
-                  if(user.user_profile.sex !== null && String(user.user_profile.sex) !== "" && String(user.user_profile.sex) !== "-1"){
+              if(user.user_profile && user.user_profile.name !== null && String(user.user_profile.name) !== ""){
+                if(user.user_profile && user.user_profile.phone !== null && String(user.user_profile.phone) !== ""){
+                  if(user.user_profile && user.user_profile.sex !== undefined && user.user_profile.sex !== null && String(user.user_profile.sex) !== "" && String(user.user_profile.sex) !== "-1"){
                     if(validateOrigin(user)){
                       if(validateUserWorks(user)){
                         const country = csc.getCountryById(user.user_profile.country);

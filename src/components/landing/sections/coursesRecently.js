@@ -9,7 +9,7 @@ declare var $: any;
 class coursesRecently extends React.Component {
 
   render() {
-    const { courses, onSeeCourseDetails, thereAreCourseImportant } = this.props;
+    const { courses, onSeeCourseDetails, thereAreCourseImportant, onNotifyLogin} = this.props;
 
     const responsive = {
       0: {
@@ -156,14 +156,21 @@ class coursesRecently extends React.Component {
                             </div>
                           </div>
                         </div>
+                        <div className="card-body p-4 pl-5">
+                          <span className="mr-4 float-right">
+                            <span className="font-weight-bold">
+                              <i className="fa fa-clock-o"></i> Modalidad: {"  "}
+                            </span>
+                            {course.modality.name}
+                          </span>
+                        </div>
                         <div className="card-footer">
                           <div className="item-card2-footer">
-                            <span className="btn btn-primary text-white float-right">
-                              <span className="font-weight-bold">
-                                <i className="fa fa-clock-o"></i> Modalidad:
-                              </span>
-                              {course.modality.name}
-                            </span>
+                            <div className="flipthis-wrapper">
+                              <Link to="/" className="btn btn-primary mb-3 mb-xl-0" onClick={() => onNotifyLogin()} style={{marginLeft: 33}}>
+                                <i className="fe fe-credit-card mr-1"></i>Comprar Curso
+                              </Link>
+                            </div>
                           </div>
                         </div>
                       </div>

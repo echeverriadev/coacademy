@@ -11,7 +11,7 @@ const UnblockCourseStateToProps = state => {
 
 const UnblockCourseDispatchToProps = (dispatch, ownProps) => {
     dispatch(mainActions.changeMenu('NOT_FOUND'))
-    const token = ownProps.location.search.split('?unblock_course=')[1]
+    const token = ownProps.location.search.split('?unblock_token=')[1]
     dispatch(coursesActions.unBlockCourse(token))
 	return {
 		changeMenu: (menu) => {

@@ -7,7 +7,7 @@ class coursesList extends React.Component {
 
     render(){
         
-        const {courses, coursesByCategories, onSeeCourseDetails} = this.props;
+        const {user,onNotifyLogin,userLogged,userCourses, onSendBuyRequest, userHasNoInscribe, courses, coursesByCategories, onSeeCourseDetails} = this.props;
         
         return (
             <div>
@@ -17,7 +17,7 @@ class coursesList extends React.Component {
                                 <div className="section-title center-block text-center">
                                     <h2>Cursos disponibles</h2>
                                     <span className="sectiontitle-design"><span className="icons"></span></span>
-                                    <p>Tenemos una gran variedad de cursos disponibles para ti</p>
+                                    <p>Tenemos una gran variedad de cursos disponibles parDa ti</p>
                                 </div>
                                 <div className="panel panel-primary">
                                     <div className="">
@@ -95,6 +95,15 @@ class coursesList extends React.Component {
                                                                     <div className="card-body">
                                                                         <Link to={"/courseDetails/"+course.id} onClick={() => onSeeCourseDetails(course)} className="btn btn-primary btn-block">Ver detalles</Link>
                                                                     </div>
+                                                                    <div className="card-body">
+                                                                        {
+                                                                            (course.price !== 0 && userLogged && user && userCourses && !userHasNoInscribe(userCourses, course))?
+                                                                                <Link to="/" className="btn btn-primary btn-block" onClick={ () => onSendBuyRequest(user, course) } style={{marginRight: 20}}><i className="fe fe-credit-card mr-1"></i>Comprar Curso</Link>
+                                                                            :
+                                                                            (course.price !== 0 && !userLogged)&&
+                                                                                <Link to="/" onClick={() => onNotifyLogin()} className="btn btn-primary btn-block" style={{marginRight: 20}}><i className="fe fe-credit-card mr-1"></i>Comprar Curso</Link>
+                                                                        }
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         ))
@@ -150,6 +159,15 @@ class coursesList extends React.Component {
                                                                             </div>
                                                                             <div className="card-body">
                                                                                 <Link to={"/courseDetails/"+course.id} onClick={() => onSeeCourseDetails(course)} className="btn btn-primary btn-block">Join Free</Link>
+                                                                            </div>
+                                                                            <div className="card-body">
+                                                                                {
+                                                                                    (course.price !== 0 && userLogged && user && userCourses && !userHasNoInscribe(userCourses, course))?
+                                                                                        <Link to="/" className="btn btn-primary btn-block" onClick={ () => onSendBuyRequest(user, course) } style={{marginRight: 20}}><i className="fe fe-credit-card mr-1"></i>Comprar Curso</Link>
+                                                                                    :
+                                                                                    (course.price !== 0 && !userLogged)&&
+                                                                                        <Link to="/" onClick={() => onNotifyLogin()} className="btn btn-primary btn-block" style={{marginRight: 20}}><i className="fe fe-credit-card mr-1"></i>Comprar Curso</Link>
+                                                                                }
                                                                             </div>
                                                                         </div>
                                                                     </div>

@@ -18,11 +18,11 @@ class Landing extends Component{
   
     render(){
 
-      const {courses, providers, students, coursesByCategories, modalities, categories, onSeeCourseDetails, thereAreCourseImportant} = this.props;
+      const {onNotifyLogin, onSendBuyRequest, userHasNoInscribe, courses, providers, students, coursesByCategories, modalities, categories, onSeeCourseDetails, thereAreCourseImportant} = this.props;
 
         return (
           <div className="landing-cont">
-            <CoursesRecently courses={courses} onSeeCourseDetails={onSeeCourseDetails} thereAreCourseImportant={thereAreCourseImportant}/>
+            <CoursesRecently onNotifyLogin={onNotifyLogin} courses={courses} onSeeCourseDetails={onSeeCourseDetails} thereAreCourseImportant={thereAreCourseImportant}/>
             <section>
               <div
                 className="about-1 cover-image sptb bg-background-color"
@@ -75,7 +75,7 @@ class Landing extends Component{
             </section>
 
             <section className="sptb">
-              <CoursesList onSeeCourseDetails={onSeeCourseDetails} coursesByCategories={coursesByCategories} courses={courses} modalities={modalities} />
+              <CoursesList onNotifyLogin={onNotifyLogin} onSeeCourseDetails={onSeeCourseDetails} coursesByCategories={coursesByCategories} courses={courses} modalities={modalities} />
             </section>
 
             <section>

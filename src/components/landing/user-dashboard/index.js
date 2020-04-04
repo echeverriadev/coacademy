@@ -35,7 +35,7 @@ class UserDashboard extends Component {
             changeMenu, 
             kindOfMenu, 
             categories, 
-            myCourses, 
+            userCourses, 
             coursesByCategories, 
             onSeeCourseDetails,
             filter_category,
@@ -43,7 +43,11 @@ class UserDashboard extends Component {
             filter_name,
             filterCourses,
             changeCourseFilter,
-            removeFilter
+            removeFilter,
+            userLogged,
+            userHasNoInscribe,
+            onSendBuyRequest,
+            onNotifyLogin
           } = this.props;
 
         return (
@@ -66,7 +70,7 @@ class UserDashboard extends Component {
               
               <Switch>
                 <Redirect from="/login" to="/" />
-                <Route exact path='/' component={() => <UserDashboardPage user={user} onLogout={onLogout} courses={courses} modalities={modalities} coursesByCategories={coursesByCategories} onSeeCourseDetails={onSeeCourseDetails} changeMenu={changeMenu} />}/>
+                <Route exact path='/' component={() => <UserDashboardPage onNotifyLogin={onNotifyLogin} onSendBuyRequest={onSendBuyRequest} user={user} userHasNoInscribe={userHasNoInscribe} userCourses={userCourses} userLogged={userLogged} onLogout={onLogout} courses={courses} modalities={modalities} coursesByCategories={coursesByCategories} onSeeCourseDetails={onSeeCourseDetails} changeMenu={changeMenu} />}/>
                 <Route exact path="/about" component={() => <About user={user} changeMenu={changeMenu} onLogout={onLogout} />}/>
                 <Route exact path="/contact" component={() => <Contact user={user} changeMenu={changeMenu} onLogout={onLogout} />}/>
                 <Route exact path="/courseDetails" component={CourseDetailsContainer}></Route>

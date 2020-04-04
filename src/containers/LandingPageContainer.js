@@ -5,6 +5,7 @@ import * as modalitiesActions from '../actions/modalities'
 import * as categoriesActions from '../actions/categories'
 import * as usersActions from '../actions/users'
 import * as mainActions from '../actions/main'
+import message from '../components/utils/message'
 
 const mapStateLandingToProps = state => {
   return {
@@ -41,6 +42,21 @@ const mapDispatchLandingToProps = (dispatch) => {
         })
       }
       console.log(result)
+      return result;
+    },
+    onNotifyLogin: () => {
+      message('Debe iniciar sesión para realizar esta acción', 'error')
+    },
+    onSendBuyRequest: (user, course) => {
+      dispatch(coursesActions.sendBuyRequest(user, course));
+    },
+    userHasNoInscribe: (userCourses, course) => {
+      var result = false;
+      userCourses.map((userCourse) => {
+        if(parseInt(userCourse.id, 10) === parseInt(course.id, 10))
+          result = true
+      })
+
       return result;
     }
   }

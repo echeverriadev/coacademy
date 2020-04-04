@@ -17,7 +17,7 @@ class UserDashboardPage extends React.Component {
 
 	render(){
 
-		const {user, onLogout, courses, modalities, coursesByCategories, onSeeCourseDetails} = this.props;
+		const {user, onLogout, onNotifyLogin, onSendBuyRequest, userHasNoInscribe, userCourses, userLogged, courses, modalities, coursesByCategories, onSeeCourseDetails} = this.props;
 
 		return(
 				<div className="landing-cont">
@@ -27,7 +27,13 @@ class UserDashboardPage extends React.Component {
             	onSeeCourseDetails={onSeeCourseDetails} 
             	coursesByCategories={coursesByCategories} 
             	courses={courses} 
-            	modalities={modalities} 
+				modalities={modalities} 
+				userLogged={userLogged}
+				userCourses={userCourses}
+				user={user}
+				userHasNoInscribe={userHasNoInscribe}
+				onSendBuyRequest={onSendBuyRequest}
+				onNotifyLogin={onNotifyLogin}
             />
           </section>
 
