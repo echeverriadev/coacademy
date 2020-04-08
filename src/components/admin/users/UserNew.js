@@ -1,21 +1,17 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React from "react";
 
 class UserNew extends React.Component {
-	
-	render(){
+  render() {
+    const {
+      user,
+      roles,
+      onHandleNewInputChange,
+      onSaveUserClick,
+      onCancelSaveUserClick,
+    } = this.props;
 
-		const {
-			user,
-			roles,
-			onHandleNewInputChange,
-			onSaveUserClick,
-			onUploadUserImageInputChange,
-			onCancelSaveUserClick
-		} = this.props
-
-		return(
-			<div className="card mb-0">
+    return (
+      <div className="card mb-0">
         <div className="card-header">
           <h3 className="card-title">Registrar usuario</h3>
         </div>
@@ -26,162 +22,218 @@ class UserNew extends React.Component {
                 <div className="card-body">
                   <div className="profile-log-switch">
                     <div className="media-heading">
-                      <h3 className="card-title mb-3 font-weight-bold">Credenciales</h3>
+                      <h3 className="card-title mb-3 font-weight-bold">
+                        Credenciales
+                      </h3>
                     </div>
                     <ul className="usertab-list mb-0">
                       <li>
                         <label className="text-dark">
-                          <span className="font-weight-semibold">Correo (*):</span> 
-                          <input 
+                          <span className="font-weight-semibold">
+                            Correo (*):
+                          </span>
+                          <input
                             name="email"
-                            className="form-control" 
+                            className="form-control"
                             placeholder="mail@example.com"
                             defaultValue={user.email}
                             onChange={onHandleNewInputChange}
-                          /> 
+                          />
                         </label>
                       </li>
                       <li>
                         <label className="text-dark">
-                          <span className="font-weight-semibold">Contraseña (*):</span> 
-                          <input 
+                          <span className="font-weight-semibold">
+                            Contraseña (*):
+                          </span>
+                          <input
                             name="password"
                             type="password"
-                            className="form-control" 
-                            defaultValue={user.password} 
+                            className="form-control"
+                            defaultValue={user.password}
                             onChange={onHandleNewInputChange}
                           />
                         </label>
                       </li>
                       <li>
                         <label className="text-dark">
-                          <span className="font-weight-semibold">Confirmación de contraseña (*):</span> 
-                          <input 
+                          <span className="font-weight-semibold">
+                            Confirmación de contraseña (*):
+                          </span>
+                          <input
                             name="confirm_password"
                             type="password"
-                            className="form-control" 
-                            defaultValue={user.confirm_password} 
+                            className="form-control"
+                            defaultValue={user.confirm_password}
                             onChange={onHandleNewInputChange}
                           />
                         </label>
                       </li>
                       <li>
                         <label className="text-dark">
-                          <span className="font-weight-semibold">Nombre (*):</span> 
-                          <input 
+                          <span className="font-weight-semibold">
+                            Nombre (*):
+                          </span>
+                          <input
                             name="name"
                             type="text"
-                            className="form-control" 
-                            defaultValue={(user.user_profile && user.user_profile.name)? user.user_profile.name : ""} 
+                            className="form-control"
+                            defaultValue={
+                              user.user_profile && user.user_profile.name
+                                ? user.user_profile.name
+                                : ""
+                            }
                             onChange={onHandleNewInputChange}
-                          /> 
+                          />
                         </label>
                       </li>
                       <li>
                         <label className="text-dark">
-                          <span className="font-weight-semibold">Apellido:</span> 
-                          <input 
+                          <span className="font-weight-semibold">
+                            Apellido:
+                          </span>
+                          <input
                             name="lastname"
                             type="text"
-                            className="form-control" 
-                            defaultValue={(user.user_profile && user.user_profile.lastname)? user.user_profile.lastname : ""} 
+                            className="form-control"
+                            defaultValue={
+                              user.user_profile && user.user_profile.lastname
+                                ? user.user_profile.lastname
+                                : ""
+                            }
                             onChange={onHandleNewInputChange}
                           />
                         </label>
                       </li>
                       <li>
                         <label className="text-dark">
-                          <span className="font-weight-semibold">Teléfono (*):</span> 
-                          <input 
+                          <span className="font-weight-semibold">
+                            Teléfono (*):
+                          </span>
+                          <input
                             name="phone"
                             type="number"
-                            className="form-control" 
-                            defaultValue={(user.user_profile && user.user_profile.phone)? user.user_profile.phone : ""} 
+                            className="form-control"
+                            defaultValue={
+                              user.user_profile && user.user_profile.phone
+                                ? user.user_profile.phone
+                                : ""
+                            }
                             onChange={onHandleNewInputChange}
                           />
                         </label>
                       </li>
                       <li>
                         <label className="text-dark">
-                          <span className="font-weight-semibold">Dirección (*):</span> 
-                          <input 
+                          <span className="font-weight-semibold">
+                            Dirección (*):
+                          </span>
+                          <input
                             name="adress"
                             type="text"
-                            className="form-control" 
-                            defaultValue={(user.user_profile && user.user_profile.adress)? user.user_profile.adress : ""} 
+                            className="form-control"
+                            defaultValue={
+                              user.user_profile && user.user_profile.adress
+                                ? user.user_profile.adress
+                                : ""
+                            }
                             onChange={onHandleNewInputChange}
                           />
                         </label>
                       </li>
                       <li>
                         <label className="text-dark">
-                          <span className="font-weight-semibold">Sexo (*):</span> 
+                          <span className="font-weight-semibold">
+                            Sexo (*):
+                          </span>
                           <select
-                            name="sex" 
-                            className="form-control" 
-                            defaultValue={(user.user_profile && user.user_profile.sex)? user.user_profile.sex : "-1"} 
+                            name="sex"
+                            className="form-control"
+                            defaultValue={
+                              user.user_profile && user.user_profile.sex
+                                ? user.user_profile.sex
+                                : "-1"
+                            }
                             onChange={onHandleNewInputChange}
                           >
-                          <option value="-1">Seleccione un género</option>
-                          <option value="1">Masculino</option>
-                          <option value="2">Femenino</option>
+                            <option value="-1">Seleccione un género</option>
+                            <option value="1">Masculino</option>
+                            <option value="2">Femenino</option>
                           </select>
                         </label>
                       </li>
                       <li></li>
                       <li>
                         <label className="text-dark">
-                          <span className="font-weight-semibold">Rol (*):</span> 
+                          <span className="font-weight-semibold">Rol (*):</span>
                           <select
-                            name="role" 
-                            className="form-control" 
-                            defaultValue={user.user_profile.role} 
+                            name="role"
+                            className="form-control"
+                            defaultValue={user.user_profile.role}
                             onChange={onHandleNewInputChange}
                           >
-                          <option value="-1"> Seleccione un rol</option>
-                          {
-                            (roles && roles.length > 0) && 
-                              roles.map(role => (
-                                <option key={role.id} value={role.id}> {role.name} </option>
-                              ))
-                          }
+                            <option value="-1"> Seleccione un rol</option>
+                            {roles &&
+                              roles.length > 0 &&
+                              roles.map((role) => (
+                                <option key={role.id} value={role.id}>
+                                  {" "}
+                                  {role.name}{" "}
+                                </option>
+                              ))}
                           </select>
                         </label>
                       </li>
-                      {
-                        (user && user.isTeacher)&&
-                        <li style={{width: "100%"}}>  
+                      {user && user.isTeacher && (
+                        <li style={{ width: "100%" }}>
                           <label className="text-dark">
-                            <span className="font-weight-semibold">Biografía (*):</span> 
+                            <span className="font-weight-semibold">
+                              Biografía (*):
+                            </span>
                           </label>
-                          <textarea 
-                            style={{height: "124px", resize: "none"}}
-                            className="form-control" 
+                          <textarea
+                            style={{ height: "124px", resize: "none" }}
+                            className="form-control"
                             name="description"
-                            defaultValue={(user && user.user_profile && user.user_profile.description)? user.user_profile.description : "" }
+                            defaultValue={
+                              user &&
+                              user.user_profile &&
+                              user.user_profile.description
+                                ? user.user_profile.description
+                                : ""
+                            }
                             onChange={onHandleNewInputChange}
                           />
                         </li>
-                      }
+                      )}
                     </ul>
                   </div>
-                  <div className="row" style={{float: 'left'}}>
-                    <button  className="btn btn-success" style={{marginLeft:10, marginRight: 10}} onClick={() => onSaveUserClick(user)}>Guardar</button>
+                  <div className="row" style={{ float: "left" }}>
+                    <button
+                      className="btn btn-success"
+                      style={{ marginLeft: 10, marginRight: 10 }}
+                      onClick={() => onSaveUserClick(user)}
+                    >
+                      Guardar
+                    </button>
                   </div>
-                  <div style={{float: 'right'}}>
-                    <button className="btn btn-info" onClick={() => onCancelSaveUserClick()}> Cancelar </button>
+                  <div style={{ float: "right" }}>
+                    <button
+                      className="btn btn-info"
+                      onClick={() => onCancelSaveUserClick()}
+                    >
+                      {" "}
+                      Cancelar{" "}
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-			</div>
-
-		);
-
-	}
-
+      </div>
+    );
+  }
 }
 
 export default UserNew;

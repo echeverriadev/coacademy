@@ -1,24 +1,38 @@
-import React from 'react'
-import {getFullDateNoHours, getHoursParse} from '../../utils/dateParse'
-import './style.css'
+import React from "react";
+import { getFullDateNoHours } from "../../utils/dateParse";
+import "./style.css";
 
 class CourseRow extends React.Component {
+  render() {
+    const {
+      course,
+      onViewDetails,
+      markAsPopular,
+      dismarkAsPopular,
+      onSetCourse,
+      onEditCourseClick,
+    } = this.props;
 
-
-	render() {
-
-		const {course, onViewDetails, markAsPopular, dismarkAsPopular, onSetCourse, onEditCourseClick} = this.props;
-
-		return (
+    return (
       <tr>
-        <td title={(parseInt(course.is_important, 10) === 1)? "Desmarcar como destacado" : "Marcar como destacado"}>
-          <input 
-            id={`heart-${course.id}`} 
-            type="checkbox" 
+        <td
+          title={
+            parseInt(course.is_important, 10) === 1
+              ? "Desmarcar como destacado"
+              : "Marcar como destacado"
+          }
+        >
+          <input
+            id={`heart-${course.id}`}
+            type="checkbox"
             name="is_important"
             disabled={parseInt(course.status, 10) === 2}
-            onClick={() => {(parseInt(course.is_important, 10) === 1)? dismarkAsPopular(course) : markAsPopular(course)}} 
-            defaultChecked={parseInt(course.is_important, 10) === 1} 
+            onClick={() => {
+              parseInt(course.is_important, 10) === 1
+                ? dismarkAsPopular(course)
+                : markAsPopular(course);
+            }}
+            defaultChecked={parseInt(course.is_important, 10) === 1}
           />
           <label for={`heart-${course.id}`}>❤</label>
 
@@ -79,34 +93,41 @@ class CourseRow extends React.Component {
         </td>
         <td>{course.category.name}</td>
         <td className="font-weight-semibold fs-16">
-        {
-          (course.price !== 0 && parseInt(course.is_in_offer) === 2)?
+          {course.price !== 0 && parseInt(course.is_in_offer) === 2 ? (
             <label>{course.price} $</label>
-          :
-          (parseInt(course.is_in_offer, 10) === 1)?
-            <label><span className="text-dark font-weight-semibold h4">{course.offer_price}$</span>
-              <span className="text-muted h5 font-weight-normal ml-1"><span className="strike-text">{course.price}$</span></span>
+          ) : parseInt(course.is_in_offer, 10) === 1 ? (
+            <label>
+              <span className="text-dark font-weight-semibold h4">
+                {course.offer_price}$
+              </span>
+              <span className="text-muted h5 font-weight-normal ml-1">
+                <span className="strike-text">{course.price}$</span>
+              </span>
             </label>
-          :
+          ) : (
             <label>Gratis</label>
-        }
+          )}
         </td>
         <td>
-          <span className={(parseInt(course.status, 10) === 1)? "badge badge-warning" : "badge badge-danger" }>
+          <span
+            className={
+              parseInt(course.status, 10) === 1
+                ? "badge badge-warning"
+                : "badge badge-danger"
+            }
+          >
             {course.statusAsString}
           </span>
         </td>
         <td>
-          <span className="badge badge-info">
-            {course.duration + " Horas"} 
-          </span>
+          <span className="badge badge-info">{course.duration + " Horas"}</span>
         </td>
         <td>
           <button
             className="btn btn-info btn-sm text-white"
             data-toggle="tooltip"
             data-original-title="View"
-            style={{marginRight: 2}}
+            style={{ marginRight: 2 }}
             onClick={() => onViewDetails(course)}
           >
             <i className="fa fa-eye"></i>
@@ -114,7 +135,7 @@ class CourseRow extends React.Component {
           <button
             className="btn btn-warning btn-sm text-white"
             data-toggle="tooltip"
-            style={{marginRight: 2}}
+            style={{ marginRight: 2 }}
             data-original-title="Edit"
             onClick={() => onEditCourseClick(course)}
           >
@@ -133,7 +154,7 @@ class CourseRow extends React.Component {
         </td>
       </tr>
     );
-	}
+  }
 }
 
 export default CourseRow;

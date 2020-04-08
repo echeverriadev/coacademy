@@ -35,7 +35,7 @@ export const REQUEST_REACTIVATE_MODALITY_FAILED =
 export function handleNewInputChange(event) {
   return {
     type: HANDLE_NEW_MODALITY_INPUT_CHANGE,
-    event
+    event,
   };
 }
 
@@ -43,34 +43,34 @@ export function handleEditInputChange(modality, event) {
   return {
     type: HANDLE_EDIT_MODALITY_INPUT_CHANGE,
     event,
-    modality
+    modality,
   };
 }
 
 export function editModality(modality) {
   return {
     type: EDIT_MODALITY,
-    modality
+    modality,
   };
 }
 
 export function cancelEditModality(modality) {
   return {
     type: CANCEL_EDIT_MODALITY,
-    modality
+    modality,
   };
 }
 
 export function deleteModality(modality) {
   return {
     type: DELETE_MODALITY,
-    modality
+    modality,
   };
 }
 
 export function cancelDeleteModality() {
   return {
-    type: CANCEL_DELETE_MODALITY
+    type: CANCEL_DELETE_MODALITY,
   };
 }
 
@@ -78,89 +78,89 @@ export function cancelDeleteModality() {
 
 function requestModalities() {
   return {
-    type: REQUEST_MODALITIES
+    type: REQUEST_MODALITIES,
   };
 }
 
 export function newModality() {
   return {
-    type: NEW_MODALITY
+    type: NEW_MODALITY,
   };
 }
 
 export function cancelNewModality() {
   return {
-    type: CANCEL_NEW_MODALITY
+    type: CANCEL_NEW_MODALITY,
   };
 }
 
 function requestModalitiesSucceded(modalities) {
   return {
     type: REQUEST_MODALITIES_SUCCEDED,
-    modalities
+    modalities,
   };
 }
 
 function requestModalitiesFailed() {
   return {
-    type: REQUEST_MODALITIES_FAILED
+    type: REQUEST_MODALITIES_FAILED,
   };
 }
 
 function requestSaveModalitySucceded(modality) {
   return {
     type: REQUEST_SAVE_MODALITY_SUCCEDED,
-    modality
+    modality,
   };
 }
 
 function requestSaveModalityFailed() {
   return {
-    type: REQUEST_SAVE_MODALITY_FAILED
+    type: REQUEST_SAVE_MODALITY_FAILED,
   };
 }
 
 function requestUpdateModalitySucceded(modality) {
   return {
     type: REQUEST_UPDATE_MODALITY_SUCCEDED,
-    modality
+    modality,
   };
 }
 
 function requestUpdateModalityFailed() {
   return {
-    type: REQUEST_UPDATE_MODALITY_FAILED
+    type: REQUEST_UPDATE_MODALITY_FAILED,
   };
 }
 
 function requestDeleteModalitySucceded(modality) {
   return {
     type: REQUEST_DELETE_MODALITY_SUCCEDED,
-    modality
+    modality,
   };
 }
 
 function requestDeleteModalityFailed() {
   return {
-    type: REQUEST_DELETE_MODALITY_FAILED
+    type: REQUEST_DELETE_MODALITY_FAILED,
   };
 }
 
 function requestReactivateModalitySucceded(modality) {
   return {
     type: REQUEST_REACTIVATE_MODALITY_SUCCEDED,
-    modality
+    modality,
   };
 }
 
 function requestReactivateModalityFailed() {
   return {
-    type: REQUEST_REACTIVATE_MODALITY_FAILED
+    type: REQUEST_REACTIVATE_MODALITY_FAILED,
   };
 }
 
 export function fetchModalities() {
-  return function(dispatch, getState) {
+  return function (dispatch, getState) {
     let user = getState().user.userData;
     dispatch(requestModalities());
     fetch(process.env.REACT_APP_NODE_URL + "/modalities", {
@@ -169,23 +169,23 @@ export function fetchModalities() {
       credentials: "with-credentials",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
-        token: user.token
-      }
+        token: user.token,
+      },
     })
       .then(
-        response => {
+        (response) => {
           if (response.ok) {
             return response.json();
           }
           if (response.status === 422)
-            return response.json().then(err => {
+            return response.json().then((err) => {
               throw err;
             });
         },
-        error => console.log("An error occurred.", error)
+        (error) => console.log("An error occurred.", error)
       )
-      .then(json => {
-        console.log(json)
+      .then((json) => {
+        console.log(json);
         if (json && json.status !== 500) {
           dispatch(requestModalitiesSucceded(json.modalities));
         } else {
@@ -193,14 +193,14 @@ export function fetchModalities() {
           message(json.message, "error");
         }
       })
-      .catch(errors => {
+      .catch((errors) => {
         console.log(errors);
       });
   };
 }
 
 export function fetchModalitiesActives() {
-  return function(dispatch, getState) {
+  return function (dispatch, getState) {
     let user = getState().user.userData;
     dispatch(requestModalities());
     fetch(process.env.REACT_APP_NODE_URL + "/modalities/actives", {
@@ -209,23 +209,22 @@ export function fetchModalitiesActives() {
       credentials: "with-credentials",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
-        token: user.token
-      }
+        token: user.token,
+      },
     })
       .then(
-        response => {
+        (response) => {
           if (response.ok) {
             return response.json();
           }
           if (response.status === 422)
-            return response.json().then(err => {
+            return response.json().then((err) => {
               throw err;
             });
         },
-        error => console.log("An error occurred.", error)
+        (error) => console.log("An error occurred.", error)
       )
-      .then(json => {
-        console.log(json)
+      .then((json) => {
         if (json && json.status !== 500) {
           dispatch(requestModalitiesSucceded(json.modalities));
         } else {
@@ -233,14 +232,14 @@ export function fetchModalitiesActives() {
           message(json.message, "error");
         }
       })
-      .catch(errors => {
+      .catch((errors) => {
         console.log(errors);
       });
   };
 }
 
 export function fetchSaveModality(modality) {
-  return function(dispatch, getState) {
+  return function (dispatch, getState) {
     if (
       modality.name === "" ||
       modality.name === undefined ||
@@ -260,23 +259,23 @@ export function fetchSaveModality(modality) {
         credentials: "with-credentials",
         headers: {
           "Content-Type": "application/json; charset=utf-8",
-          token: user.token
+          token: user.token,
         },
-        body: JSON.stringify(modality)
+        body: JSON.stringify(modality),
       })
         .then(
-          response => {
+          (response) => {
             if (response.ok) {
               return response.json();
             }
             if (response.status === 422)
-              return response.json().then(err => {
+              return response.json().then((err) => {
                 throw err;
               });
           },
-          error => console.log("An error occurred.", error)
+          (error) => console.log("An error occurred.", error)
         )
-        .then(json => {
+        .then((json) => {
           if (json && json.status !== 500) {
             dispatch(requestSaveModalitySucceded(json.modality));
             message(json.message, "success", 200);
@@ -285,7 +284,7 @@ export function fetchSaveModality(modality) {
             message(json.message, "error");
           }
         })
-        .catch(errors => {
+        .catch((errors) => {
           console.log(errors);
         });
     }
@@ -293,10 +292,10 @@ export function fetchSaveModality(modality) {
 }
 
 export function fetchUpdateModality(modalityToSend) {
-  return function(dispatch, getState) {
+  return function (dispatch, getState) {
     var modality = {
       name: modalityToSend.name,
-      description: modalityToSend.description
+      description: modalityToSend.description,
     };
     if (
       modality.name === "" ||
@@ -319,24 +318,24 @@ export function fetchUpdateModality(modalityToSend) {
           credentials: "with-credentials",
           headers: {
             "Content-Type": "application/json; charset=utf-8",
-            token: user.token
+            token: user.token,
           },
-          body: JSON.stringify(modality)
+          body: JSON.stringify(modality),
         }
       )
         .then(
-          response => {
+          (response) => {
             if (response.ok) {
               return response.json();
             }
             if (response.status === 422)
-              return response.json().then(err => {
+              return response.json().then((err) => {
                 throw err;
               });
           },
-          error => console.log("An error occurred.", error)
+          (error) => console.log("An error occurred.", error)
         )
-        .then(json => {
+        .then((json) => {
           if (json && json.status !== 500) {
             dispatch(requestUpdateModalitySucceded(json.modality));
             message(json.message, "success", 200);
@@ -345,7 +344,7 @@ export function fetchUpdateModality(modalityToSend) {
             message(json.message, "error");
           }
         })
-        .catch(errors => {
+        .catch((errors) => {
           console.log(errors);
         });
     }
@@ -353,7 +352,7 @@ export function fetchUpdateModality(modalityToSend) {
 }
 
 export function fetchDeleteModality(modality) {
-  return function(dispatch, getState) {
+  return function (dispatch, getState) {
     let user = getState().user.userData;
     dispatch(requestModalities());
     fetch(process.env.REACT_APP_NODE_URL + "/modalities/" + modality.id, {
@@ -362,22 +361,22 @@ export function fetchDeleteModality(modality) {
       credentials: "with-credentials",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
-        token: user.token
-      }
+        token: user.token,
+      },
     })
       .then(
-        response => {
+        (response) => {
           if (response.ok) {
             return response.json();
           }
           if (response.status === 422)
-            return response.json().then(err => {
+            return response.json().then((err) => {
               throw err;
             });
         },
-        error => console.log("An error occurred.", error)
+        (error) => console.log("An error occurred.", error)
       )
-      .then(json => {
+      .then((json) => {
         console.log(json);
         if (json && json.status !== 500) {
           dispatch(requestDeleteModalitySucceded(modality));
@@ -387,14 +386,14 @@ export function fetchDeleteModality(modality) {
           message(json.message, "error");
         }
       })
-      .catch(errors => {
+      .catch((errors) => {
         console.log(errors);
       });
   };
 }
 
 export function fetchReactivateModality(modality) {
-  return function(dispatch, getState) {
+  return function (dispatch, getState) {
     let user = getState().user.userData;
     dispatch(requestModalities());
     fetch(
@@ -408,23 +407,23 @@ export function fetchReactivateModality(modality) {
         credentials: "with-credentials",
         headers: {
           "Content-Type": "application/json; charset=utf-8",
-          token: user.token
-        }
+          token: user.token,
+        },
       }
     )
       .then(
-        response => {
+        (response) => {
           if (response.ok) {
             return response.json();
           }
           if (response.status === 422)
-            return response.json().then(err => {
+            return response.json().then((err) => {
               throw err;
             });
         },
-        error => console.log("An error occurred.", error)
+        (error) => console.log("An error occurred.", error)
       )
-      .then(json => {
+      .then((json) => {
         console.log(json);
         if (json && json.status !== 500) {
           dispatch(requestReactivateModalitySucceded(modality));
@@ -434,7 +433,7 @@ export function fetchReactivateModality(modality) {
           message(json.message, "error");
         }
       })
-      .catch(errors => {
+      .catch((errors) => {
         console.log(errors);
       });
   };

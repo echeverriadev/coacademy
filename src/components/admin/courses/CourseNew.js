@@ -1,26 +1,22 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
-import ModalDelete from '../utils/DeleteModal'
+import React from "react";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 import "./style.css";
 
 class CourseNew extends React.Component {
-
-	render(){
-
-		const {
+  render() {
+    const {
       isFetching,
-      providers, 
+      providers,
       categories,
       modalities,
       course,
       onHandleNewInputChange,
       onSaveCourseClick,
-      onCancelSaveCourseClick
+      onCancelSaveCourseClick,
     } = this.props;
 
-		return (
+    return (
       <div className="card mb-0">
         {isFetching && (
           <div className="loader-style">
@@ -62,7 +58,7 @@ class CourseNew extends React.Component {
             >
               <option value="-1">Seleccione una categoría</option>
               {categories && categories.length > 0
-                ? categories.map(category => (
+                ? categories.map((category) => (
                     <option key={category.id} value={category.id}>
                       {category.name}
                     </option>
@@ -80,7 +76,7 @@ class CourseNew extends React.Component {
             >
               <option value="-1">Seleccione una modalidad</option>
               {modalities && modalities.length > 0
-                ? modalities.map(modality => (
+                ? modalities.map((modality) => (
                     <option key={modality.id} value={modality.id}>
                       {modality.name}
                     </option>
@@ -112,12 +108,13 @@ class CourseNew extends React.Component {
             >
               <option value="-1">Seleccione una profesor</option>
               {providers && providers.length > 0
-                ? providers.map(provider => (
+                ? providers.map((provider) => (
                     <option key={provider.id} value={provider.id}>
-                      {
-                        (provider &&
-                        provider.user_profile &&
-                        provider.user_profile.name)? provider.user_profile.name : provider.email}
+                      {provider &&
+                      provider.user_profile &&
+                      provider.user_profile.name
+                        ? provider.user_profile.name
+                        : provider.email}
                     </option>
                   ))
                 : ""}
@@ -125,51 +122,55 @@ class CourseNew extends React.Component {
           </div>
           <div className="form-group">
             <label className="form-label text-dark">Opciones de precio</label>
-            
-            <label style={{padding: 5}} className="form-control"> 
+
+            <label style={{ padding: 5 }} className="form-control">
               <input
-                style={{marginLeft: 5}}
+                style={{ marginLeft: 5 }}
                 type="radio"
                 name="priceWay"
-                checked={(course.priceWay === "isFree")}
+                checked={course.priceWay === "isFree"}
                 defaultValue="isFree"
                 onChange={onHandleNewInputChange}
-              /> Gratis 
+              />{" "}
+              Gratis
               <input
-                style={{marginLeft: 5}}
+                style={{ marginLeft: 5 }}
                 type="radio"
                 name="priceWay"
-                checked={(course.priceWay === "is_in_offer")}
+                checked={course.priceWay === "is_in_offer"}
                 defaultValue="is_in_offer"
                 onChange={onHandleNewInputChange}
-              /> En oferta 
+              />{" "}
+              En oferta
               <input
-                style={{marginLeft: 5}}
+                style={{ marginLeft: 5 }}
                 type="radio"
                 name="priceWay"
                 defaultValue="isPaid"
-                checked={(course.priceWay === "isPaid")}
+                checked={course.priceWay === "isPaid"}
                 onChange={onHandleNewInputChange}
-              /> Pago
+              />{" "}
+              Pago
             </label>
           </div>
-          {
-            (course.priceWay === "isPaid")?
+          {course.priceWay === "isPaid" ? (
+            <div className="form-group">
+              <label className="form-label text-dark">Precio $ (*)</label>
+              <input
+                type="number"
+                className="form-control"
+                name="price"
+                defaultValue={course.price}
+                placeholder="React Native"
+                onChange={onHandleNewInputChange}
+              />
+            </div>
+          ) : (
+            course.priceWay === "is_in_offer" && (
               <div className="form-group">
-                <label className="form-label text-dark">Precio $ (*)</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  name="price"
-                  defaultValue={course.price}
-                  placeholder="React Native"
-                  onChange={onHandleNewInputChange}
-                />
-              </div>
-            :
-            (course.priceWay === "is_in_offer")&&
-              <div className="form-group">
-                <label className="form-label text-dark">Precio base $ (*)</label>
+                <label className="form-label text-dark">
+                  Precio base $ (*)
+                </label>
                 <input
                   type="number"
                   className="form-control"
@@ -178,8 +179,10 @@ class CourseNew extends React.Component {
                   placeholder="Precio base"
                   onChange={onHandleNewInputChange}
                 />
-                <br/>
-                <label className="form-label text-dark">Precio de oferta $ (*)</label>
+                <br />
+                <label className="form-label text-dark">
+                  Precio de oferta $ (*)
+                </label>
                 <input
                   type="number"
                   className="form-control"
@@ -189,7 +192,8 @@ class CourseNew extends React.Component {
                   onChange={onHandleNewInputChange}
                 />
               </div>
-          }
+            )
+          )}
           <div className="form-group">
             <label className="form-label text-dark">Description</label>
             <textarea
@@ -202,7 +206,10 @@ class CourseNew extends React.Component {
             ></textarea>
           </div>
           <div className="p-2 border mb-4 form-group">
-            <label>Puede subir la descripción del curso en formato PDF (Tamaño máximo de 10 MB)</label>
+            <label>
+              Puede subir la descripción del curso en formato PDF (Tamaño máximo
+              de 10 MB)
+            </label>
             <form>
               <input
                 id="demo"
@@ -240,9 +247,7 @@ class CourseNew extends React.Component {
               />
             </form>
           </div>
-          {course &&
-          course.image &&
-          course.image.error ? (
+          {course && course.image && course.image.error ? (
             <div style={{ marginTop: -14 }}>
               <p style={{ color: "red" }}>
                 <i
@@ -268,41 +273,41 @@ class CourseNew extends React.Component {
           </div>
           <div className="form-group">
             <label className="form-label text-dark">Opciones de fechas</label>
-            
-            <label style={{padding: 5}} className="form-control"> 
+
+            <label style={{ padding: 5 }} className="form-control">
               <input
-                style={{marginLeft: 5}}
+                style={{ marginLeft: 5 }}
                 type="radio"
                 name="dateWay"
-                checked={(course.dateWay === "with_date")}
+                checked={course.dateWay === "with_date"}
                 defaultValue="with_date"
                 onChange={onHandleNewInputChange}
-              /> Temporal 
+              />{" "}
+              Temporal
               <input
-                style={{marginLeft: 5}}
+                style={{ marginLeft: 5 }}
                 type="radio"
                 name="dateWay"
-                checked={(course.dateWay === "without_date")}
+                checked={course.dateWay === "without_date"}
                 defaultValue="without_date"
                 onChange={onHandleNewInputChange}
-              /> Atemporal
+              />{" "}
+              Atemporal
             </label>
           </div>
-          {
-            (course.dateWay === "with_date")&&
-              <div className="form-group">
-                <label className="form-label">Fecha de inicio (*)</label>
-                <input
-                  type="date"
-                  className="form-control"
-                  name="begin_date"
-                  defaultValue={course.begin_date}
-                  onChange={onHandleNewInputChange}
-                />
-              </div>
-          }
-          {
-           (course.dateWay === "with_date")&&
+          {course.dateWay === "with_date" && (
+            <div className="form-group">
+              <label className="form-label">Fecha de inicio (*)</label>
+              <input
+                type="date"
+                className="form-control"
+                name="begin_date"
+                defaultValue={course.begin_date}
+                onChange={onHandleNewInputChange}
+              />
+            </div>
+          )}
+          {course.dateWay === "with_date" && (
             <div className="form-group">
               <label className="form-label">Fecha de culminación (*)</label>
               <input
@@ -313,27 +318,29 @@ class CourseNew extends React.Component {
                 onChange={onHandleNewInputChange}
               />
             </div>
-          }
+          )}
           <div className="form-group">
             <label className="form-label text-dark">Nivel de importacia</label>
-            
-            <label style={{padding: 5}} className="form-control"> 
+
+            <label style={{ padding: 5 }} className="form-control">
               <input
-                style={{marginLeft: 5}}
+                style={{ marginLeft: 5 }}
                 type="radio"
                 name="is_important"
                 checked={course.is_important === "1"}
                 defaultValue="1"
                 onChange={onHandleNewInputChange}
-              /> Destacado 
+              />{" "}
+              Destacado
               <input
-                style={{marginLeft: 5}}
+                style={{ marginLeft: 5 }}
                 type="radio"
                 name="is_important"
                 checked={course.is_important === "2"}
                 defaultValue="2"
                 onChange={onHandleNewInputChange}
-              /> Común 
+              />{" "}
+              Común
             </label>
           </div>
         </div>
@@ -357,9 +364,7 @@ class CourseNew extends React.Component {
         </div>
       </div>
     );
-
-	}
-
+  }
 }
 
 export default CourseNew;

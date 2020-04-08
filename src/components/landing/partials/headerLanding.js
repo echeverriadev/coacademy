@@ -12,11 +12,9 @@ class header extends React.Component {
       onLogout,
       categories,
       filter_category,
-      filter_modality,
       filter_name,
       filterCoursesHeader,
       changeCourseFilterHeader,
-      removeFilterHeader
     } = this.props;
     return (
       <div>
@@ -126,7 +124,7 @@ class header extends React.Component {
                                 </option>
                                 {categories &&
                                   categories.length > 0 &&
-                                  categories.map(category => (
+                                  categories.map((category) => (
                                     <option
                                       key={category.id}
                                       value={category.id}
@@ -174,7 +172,7 @@ class header extends React.Component {
                                 id="text4"
                                 type="text"
                                 name="name"
-                                value={filter_name}
+                                value={filter_name || ""}
                                 onChange={changeCourseFilterHeader}
                                 placeholder="Buscar curso....."
                               />
@@ -183,7 +181,7 @@ class header extends React.Component {
                               <select
                                 name="category_id"
                                 onChange={changeCourseFilterHeader}
-                                value={filter_category}
+                                value={filter_category || ""}
                                 className="form-control select2-show-search  border-bottom-0"
                                 data-placeholder="Select Category"
                               >
@@ -193,7 +191,7 @@ class header extends React.Component {
                                   </option>
                                   {categories &&
                                     categories.length > 0 &&
-                                    categories.map(category => (
+                                    categories.map((category) => (
                                       <option
                                         key={category.id}
                                         value={category.id}

@@ -1,15 +1,19 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React from "react";
 import { getFullDateNoHours } from "../../utils/dateParse";
-import ModalDelete from '../utils/DeleteModal';
+import ModalDelete from "../utils/DeleteModal";
 
 class CourseDetails extends React.Component {
+  render() {
+    const {
+      course,
+      onGoBackToListClick,
+      onEditCourseClick,
+      onReactivateCourseClick,
+      onCancelDeleteCourseClick,
+      onDeleteCourseClick,
+    } = this.props;
 
-	render(){
-
-		const { course, onGoBackToListClick, markAsPopular, dismarkAsPopular, onEditCourseClick, onReactivateCourseClick, onCancelDeleteCourseClick,  onDeleteCourseClick} = this.props;
-
-		return (
+    return (
       <div className="row">
         <div className="col-xl-8 col-lg-8 col-md-12">
           <div className="card overflow-hidden">
@@ -18,15 +22,21 @@ class CourseDetails extends React.Component {
                 <div className="text-dark">
                   <h3>
                     {course.name}{" "}
-                    {
-                      (course.price !== 0 && parseInt(course.is_in_offer) === 2)?
-                        <label style={{ float: "right" }}>{course.price} $</label>
-                      :
-                      (parseInt(course.is_in_offer, 10) === 1)&&
-                        <label style={{ float: "right" }}><span class="text-dark font-weight-semibold h2">{course.offer_price}$</span>
-                          <span class="text-muted h3 font-weight-normal ml-1"><span class="strike-text">{course.price}$</span></span>
+                    {course.price !== 0 &&
+                    parseInt(course.is_in_offer) === 2 ? (
+                      <label style={{ float: "right" }}>{course.price} $</label>
+                    ) : (
+                      parseInt(course.is_in_offer, 10) === 1 && (
+                        <label style={{ float: "right" }}>
+                          <span className="text-dark font-weight-semibold h2">
+                            {course.offer_price}$
+                          </span>
+                          <span className="text-muted h3 font-weight-normal ml-1">
+                            <span className="strike-text">{course.price}$</span>
+                          </span>
                         </label>
-                    }
+                      )
+                    )}
                   </h3>
                 </div>
                 <div className="text-dark">
@@ -107,7 +117,7 @@ class CourseDetails extends React.Component {
                       }
                       style={{
                         height: "210px",
-                        width: "240px"
+                        width: "240px",
                       }}
                       alt="img"
                       className="img-responsive br-3"
@@ -152,8 +162,7 @@ class CourseDetails extends React.Component {
                   </small>
                 </div>
                 <hr style={{ marginTop: 8 }} />
-                {
-                  (parseInt(course.with_date, 10) === 1)&&
+                {parseInt(course.with_date, 10) === 1 && (
                   <div className="row">
                     <div className="col-6">
                       <h4 className="mb-3">Fecha de Inicio:</h4>
@@ -170,7 +179,7 @@ class CourseDetails extends React.Component {
                       </label>
                     </div>
                   </div>
-                }
+                )}
               </div>
               <div className="tab-pane" id="tab-2">
                 <div className="mb-4">
@@ -201,33 +210,33 @@ class CourseDetails extends React.Component {
                 </button>
 
                 <button
-                  style={{marginLeft: 10}}
+                  style={{ marginLeft: 10 }}
                   className="btn btn-warning "
                   onClick={() => onEditCourseClick(course)}
                 >
                   Modificar
                 </button>
 
-                {
-                  (course && course.status && parseInt(course.status, 10) === 2)?
-                    <button
-                      className="btn btn-success"
-                      style={{marginLeft: 10}}
-                      onClick={() => onReactivateCourseClick(course.id)}
-                    >
-                      Publicar
-                    </button>
-                  :
-                    <button
-                      style={{marginLeft: 10}}
-                      data-toggle="modal"
-                      data-target="#exampleModal"
-                      className="btn btn-danger"
-                    >
-                      Inhabilitar
-                    </button>
-
-                }
+                {course &&
+                course.status &&
+                parseInt(course.status, 10) === 2 ? (
+                  <button
+                    className="btn btn-success"
+                    style={{ marginLeft: 10 }}
+                    onClick={() => onReactivateCourseClick(course.id)}
+                  >
+                    Publicar
+                  </button>
+                ) : (
+                  <button
+                    style={{ marginLeft: 10 }}
+                    data-toggle="modal"
+                    data-target="#exampleModal"
+                    className="btn btn-danger"
+                  >
+                    Inhabilitar
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -250,10 +259,61 @@ class CourseDetails extends React.Component {
                 />
                 <div>
                   <div className=" item-user-icons mt-4">
-                    {(course && course.provider && course.provider.facebook && course.provider.facebook !== "null")&& <a href={`https://www.facebook.com/${course.provider.facebook}`} target="_blank" style={{marginRight: 5}} className="facebook-bg mt-0"><i className="fa fa-facebook"></i></a>}
-                    {(course && course.provider && course.provider.twitte && course.provider.twitte !== "null")&& <a href={`https://www.twitter.com/${course.provider.twitter}`} target="_blank" style={{marginRight: 5}} className="twitter-bg"><i className="fa fa-twitter"></i></a>}
-                    {(course && course.provider && course.provider.instagram && course.provider.instagram !== "null")&& <a href={`https://www.instagram.com/${course.provider.instagram}`} target="_blank" style={{marginRight: 5}} className="instagram"><i className="fa fa-instagram"></i></a>}
-                    {(course && course.provider && course.provider.linkedin && course.provider.linkedin !== "null")&& <a href={`https://www.linkedin.com/in/${course.provider.linkedin}`} target="_blank" className="linkedin"><i className="fa fa-linkedin"></i></a>}
+                    {course &&
+                      course.provider &&
+                      course.provider.facebook &&
+                      course.provider.facebook !== "null" && (
+                        <a
+                          href={`https://www.facebook.com/${course.provider.facebook}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{ marginRight: 5 }}
+                          className="facebook-bg mt-0"
+                        >
+                          <i className="fa fa-facebook"></i>
+                        </a>
+                      )}
+                    {course &&
+                      course.provider &&
+                      course.provider.twitte &&
+                      course.provider.twitte !== "null" && (
+                        <a
+                          href={`https://www.twitter.com/${course.provider.twitter}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{ marginRight: 5 }}
+                          className="twitter-bg"
+                        >
+                          <i className="fa fa-twitter"></i>
+                        </a>
+                      )}
+                    {course &&
+                      course.provider &&
+                      course.provider.instagram &&
+                      course.provider.instagram !== "null" && (
+                        <a
+                          href={`https://www.instagram.com/${course.provider.instagram}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{ marginRight: 5 }}
+                          className="instagram"
+                        >
+                          <i className="fa fa-instagram"></i>
+                        </a>
+                      )}
+                    {course &&
+                      course.provider &&
+                      course.provider.linkedin &&
+                      course.provider.linkedin !== "null" && (
+                        <a
+                          href={`https://www.linkedin.com/in/${course.provider.linkedin}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="linkedin"
+                        >
+                          <i className="fa fa-linkedin"></i>
+                        </a>
+                      )}
                   </div>
                   <a href="userprofile.html" className="text-dark">
                     <h4 className="mt-3 mb-1 font-weight-semibold">
@@ -263,61 +323,13 @@ class CourseDetails extends React.Component {
                 </div>
               </div>
             </div>
-            <div className="card-body" style={{textAlign: "justify"}}>
+            <div className="card-body" style={{ textAlign: "justify" }}>
               <h4 className="mb-4">Biografía</h4>
               <div>
                 <span>{course.provider.description}</span>
               </div>
-              <br/>
+              <br />
             </div>
-            {
-              /*
-                <div className="card-body item-user">
-                  <h4 className="mb-4">Información de contacto</h4>
-                  <div>
-                    <h6>
-                      <span className="font-weight-semibold">
-                        <i className="fa fa-envelope mr-2 mb-2"></i>
-                      </span>
-                      <a href="#" className="text-body">
-                        {" "}
-                        {course.provider.email}
-                      </a>
-                    </h6>
-                    <h6>
-                      <span className="font-weight-semibold">
-                        <i className="fa fa-phone mr-2  mb-2"></i>
-                      </span>
-                      <a href="#" className="text-body">
-                        {" "}
-                        {course.provider.phone}
-                      </a>
-                    </h6>
-                  </div>
-                  <div className=" item-user-icons mt-4">
-                    {(course.provider.facebook && course.provider.facebook !== "null") && (
-                      <a
-                        href={course.provider.facebook}
-                        className="facebook-bg mt-0"
-                      >
-                        <i className="fa fa-facebook"></i>
-                      </a>
-                    )}
-                    {(course.provider.twitter && course.provider.twitter !== "null") && (
-                      <a href={course.provider.twitter} className="twitter-bg">
-                        <i className="fa fa-twitter"></i>
-                      </a>
-                    )}
-                    {(course.provider.instagram && course.provider.instagram !== "null") && (
-                      <a href="#" className="instagram-bg">
-                        <i className="fa fa-instagram"></i>
-                      </a>
-                    )}
-                  </div>
-                </div>
-
-              */
-            }
           </div>
         </div>
         <ModalDelete
@@ -327,8 +339,7 @@ class CourseDetails extends React.Component {
         />
       </div>
     );
-	}
-
+  }
 }
 
 export default CourseDetails;

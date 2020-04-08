@@ -1,41 +1,37 @@
-import React from 'react'
-import CourseRow from './CourseRow'
-import CourseListHeader from './CourseListHeader'
-import ModalDelete from '../utils/DeleteModal';
+import React from "react";
+import CourseRow from "./CourseRow";
+import CourseListHeader from "./CourseListHeader";
+import ModalDelete from "../utils/DeleteModal";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
-import './style.css'
+import "./style.css";
 
-declare var $:any;
+declare var $: any;
 
 class CoursesList extends React.Component {
-
-  componentDidMount(){
-    var script=document.createElement('script');
-    script.type='text/javascript';
-    script.src='assets/js/dataTables/custom-reload-table.js';
+  componentDidMount() {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "assets/js/dataTables/custom-reload-table.js";
 
     $("body").append(script);
   }
 
-	render(){
-
+  render() {
     const {
       isFetching,
       courses,
       course,
-      courseLogged,
       onSetCourse,
       onCancelDeleteCourse,
       onDeleteCourse,
       onViewDetails,
-      onEditCourseClick,
       onNewCourse,
       markAsPopular,
-      dismarkAsPopular
+      dismarkAsPopular,
     } = this.props;
 
-		return (
+    return (
       <div className="card mb-0">
         <div className="card-header">
           <h3 className="card-title">Lista de Cursos</h3>
@@ -56,16 +52,17 @@ class CoursesList extends React.Component {
               />
             </div>
           )}
-          <div
-            className="table-responsive border-top "
-          >
-            <table style={{width: "100%", marginBottom: 10}} className="data-table-user table table-striped table-bordered table-hover mb-0 text-nowrap">
+          <div className="table-responsive border-top ">
+            <table
+              style={{ width: "100%", marginBottom: 10 }}
+              className="data-table-user table table-striped table-bordered table-hover mb-0 text-nowrap"
+            >
               <thead>
                 <CourseListHeader />
               </thead>
               <tbody>
                 {courses && courses.length > 0 ? (
-                  courses.map(course => (
+                  courses.map((course) => (
                     <CourseRow
                       key={course.id}
                       course={course}
@@ -77,7 +74,12 @@ class CoursesList extends React.Component {
                   ))
                 ) : (
                   <tr>
-                    <th title="Marca de destacado"><i style={{fontSize: 25, color: "orange"}} className="fa fa-map-marker"></i></th>
+                    <th title="Marca de destacado">
+                      <i
+                        style={{ fontSize: 25, color: "orange" }}
+                        className="fa fa-map-marker"
+                      ></i>
+                    </th>
                     <th>Detalles</th>
                     <th>Categoría</th>
                     <th>Precio</th>
@@ -108,9 +110,7 @@ class CoursesList extends React.Component {
         />
       </div>
     );
-
-	}
-
+  }
 }
 
 export default CoursesList;
