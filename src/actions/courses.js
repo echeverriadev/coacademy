@@ -1,6 +1,7 @@
 import fetch from "cross-fetch";
 import { addDayWithoutFormat, dateParse } from "../components/utils/dateParse";
 import message from "../components/utils/message";
+import history from '../history'
 
 declare var $: any;
 
@@ -234,9 +235,10 @@ function requestSendBuyRequest() {
   };
 }
 
-function requestSendBuyRequestSuccess() {
+function requestSendBuyRequestSuccess(json) {
   return {
     type: REQUEST_SEND_BUY_REQUEST_SUCCESS,
+    params: json
   };
 }
 
@@ -1442,21 +1444,19 @@ export function sendBuyRequest(user, course) {
     dispatch(requestSendBuyRequest());
 
     let token = getState().user.userData.token;
-
+    
     return fetch(
       process.env.REACT_APP_NODE_URL +
         "/courses/" +
         course.id +
         "/sendBuyRequest",
       {
-        method: "POST",
+        method: "GET",
         mode: "cors",
         credentials: "with-credentials",
         headers: {
-          "Content-Type": "application/json; charset=utf-8",
           token: token,
-        },
-        body: JSON.stringify(body),
+        }
       }
     )
       .then(
@@ -1473,11 +1473,14 @@ export function sendBuyRequest(user, course) {
         (error) => console.log("An error occurred.", error)
       )
       .then((json) => {
-        console.log(json);
+        console.log(json)
         if (json && json.status !== 500) {
-          message(json.message, "success", 0);
-          dispatch(requestSendBuyRequestSuccess());
+          dispatch(requestSendBuyRequestSuccess(json));
+          history.push({
+            pathname: '/web-pay-redirect',
+          })
         } else {
+
           if (Array.isArray(json.errors)) {
             json.errors.map((err) => {
               message(err.msg, "error", 0);
@@ -1485,7 +1488,9 @@ export function sendBuyRequest(user, course) {
           } else {
             message(json.message, "error", 0);
           }
+
           dispatch(requestSendBuyRequestFailed());
+
         }
       })
       .catch((errors) => {

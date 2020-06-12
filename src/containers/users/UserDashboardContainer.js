@@ -18,7 +18,8 @@ const mapStateUserDashboardToProps = state => {
     coursesByCategories: state.courses.coursesByCategories,
     filter_category: state.courses.filters.category_id,
     filter_modality: state.courses.filters.modality_id,
-    filter_name: state.courses.filters.name
+    filter_name: state.courses.filters.name,
+    webPayParams: state.courses.webPayParams
   }
 }
 

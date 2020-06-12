@@ -17,6 +17,8 @@ import MyCoursesListContainer from "../../../containers/courses/MyCoursesListCon
 import UserProfileContainer from "../../../containers/users/UserProfileContainer";
 import UnblockCourseContainer from "../../../containers/courses/UnblockCoursesContainer";
 
+import WebPayRedirect from '../../../webPayRedirect';
+
 class UserDashboard extends Component {
   UNSAFE_componentWillMount() {
     this.props.changeMenu("INDEX");
@@ -44,6 +46,7 @@ class UserDashboard extends Component {
       userHasNoInscribe,
       onSendBuyRequest,
       onNotifyLogin,
+      webPayParams
     } = this.props;
 
     return (
@@ -128,6 +131,8 @@ class UserDashboard extends Component {
             path="/courses/unblock"
             component={UnblockCourseContainer}
           />
+
+          <Route path='/web-pay-redirect' component={() => <WebPayRedirect webPayParams={webPayParams} />}/>
 
           <Route component={() => <PageNotFound changeMenu={changeMenu} />} />
         </Switch>

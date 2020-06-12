@@ -15,7 +15,8 @@ const initialState = {
     category_id: null,
     modality_id: null,
     name: null
-  }
+  },
+  webPayParams: {}
 }
 
 const coursesReducer = (state = initialState, action) => {
@@ -435,7 +436,12 @@ const coursesReducer = (state = initialState, action) => {
 
     case coursesActions.REQUEST_SEND_BUY_REQUEST_SUCCESS:
     return Object.assign({}, state, {
-      isFetching: false
+      isFetching: false,
+      webPayParams: Object.assign({}, state.webPayParams, {
+        token: action.params.token,
+        url: action.params.url,
+        inputName: action.params.inputName
+      })
     })
 
     case coursesActions.REQUEST_SEND_BUY_REQUEST_FAILED:
