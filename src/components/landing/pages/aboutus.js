@@ -247,7 +247,7 @@ class About extends React.Component {
                       <div class='card-body'>
                         <div class='item-box text-center'>
                           <div class=' text-center  '>
-                            <i class='fa fa-compress'></i>
+                            <i class='fa fa-clipboard'></i>
                           </div>
                           <div class='item-box-wrap'>
                             <h5 class='mb-2'>Postea una oferta</h5>
@@ -265,7 +265,7 @@ class About extends React.Component {
                       <div class='card-body'>
                         <div class='item-box text-center'>
                           <div class=' text-center  '>
-                            <i class='fa fa-compress'></i>
+                            <i class='fa fa-money'></i>
                           </div>
                           <div class='item-box-wrap'>
                             <h5 class='mb-2'>Rentabiliza</h5>
