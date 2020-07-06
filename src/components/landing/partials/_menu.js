@@ -71,7 +71,12 @@ class _menu extends React.Component {
                         {!user ? (
                           <Link
                             to='/login'
-                            className='text-dark'
+                            className='btn'
+                            style={{
+                              fontSize: 'medium',
+                              fontWeight: '500',
+                              padding: 0,
+                            }}
                             onClick={() => changeMenu('LOGIN')}
                           >
                             <i className='fa fa-sign-in mr-1'></i>{' '}
