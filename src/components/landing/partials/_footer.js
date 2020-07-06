@@ -11,10 +11,9 @@ const footer = () => (
               <h6>¿Quienes Somos</h6>
               <hr className='deep-purple  accent-2 mb-4 mt-0 d-inline-block mx-auto' />
               <p className='mb-0'>
-                Somos un equipo multidisciplinario que entrega soluciones de
-                desarrollo profesional, nuestros valores diferenciadores están
-                enfocados en ser un socio estratégico de nuestros clientes
-                entregando un servicio integral y de alta calidad.
+                Somos expertos en potenciar el desarrollo de carrera de los
+                profesionales, a través de nuestros servicios de outplacement,
+                plataforma on line y selección de personas
               </p>
             </div>
             <div className='col-lg-2 col-md-12'>
@@ -51,16 +50,31 @@ const footer = () => (
               <ul className='list-unstyled list-inline mt-3'>
                 <li className='list-inline-item'>
                   <a
-                    href='https://www.instagram.com/colaboral.cl/'
+                    href='/'
                     className='btn-floating btn-sm rgba-white-slight mx-1 waves-effect waves-light'
                   >
-                    <i className='fa fa-instagram'></i>
+                    <i className='fa fa-facebook'></i>
                   </a>
                 </li>
-
                 <li className='list-inline-item'>
                   <a
-                    href='https://www.linkedin.com/company/colaboral.com/'
+                    href='/'
+                    className='btn-floating btn-sm rgba-white-slight mx-1 waves-effect waves-light'
+                  >
+                    <i className='fa fa-twitter'></i>
+                  </a>
+                </li>
+                <li className='list-inline-item'>
+                  <a
+                    href='/'
+                    className='btn-floating btn-sm rgba-white-slight mx-1 waves-effect waves-light'
+                  >
+                    <i className='fa fa-google-plus'></i>
+                  </a>
+                </li>
+                <li className='list-inline-item'>
+                  <a
+                    href='/'
                     className='btn-floating btn-sm rgba-white-slight mx-1 waves-effect waves-light'
                   >
                     <i className='fa fa-linkedin'></i>
@@ -104,14 +118,6 @@ const footer = () => (
                   </a>
                 </li>
               </ul>
-              <div>
-                <img
-                  src={require('./colaboral-color.png')}
-                  className='header-brand-img'
-                  alt=' logo'
-                  style={{ width: '9em' }}
-                />
-              </div>
             </div>
           </div>
         </div>
