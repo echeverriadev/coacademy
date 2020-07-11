@@ -29,6 +29,7 @@ class CoursesList extends React.Component {
       onNewCourse,
       markAsPopular,
       dismarkAsPopular,
+      onEditCourseClick
     } = this.props;
 
     return (
@@ -70,6 +71,7 @@ class CoursesList extends React.Component {
                       markAsPopular={markAsPopular}
                       dismarkAsPopular={dismarkAsPopular}
                       onSetCourse={onSetCourse}
+                      onEditCourseClick={onEditCourseClick}
                     />
                   ))
                 ) : (
